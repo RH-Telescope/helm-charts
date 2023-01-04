@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "application.fullname" . }}-config
+  namespace: {{ .Release.Namespace }}
+data:
+  config.js: |
+    window.TELESCOPE_BACKEND_URL = {{ required "Backend URL is required" (.Values.backendUrl | quote) }}

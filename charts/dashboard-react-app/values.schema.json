@@ -1,90 +1,60 @@
 {
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "http://example.com/example.json",
+    "$schema": "https://json-schema.org/draft-07/schema",
     "type": "object",
-    "default": {},
-    "title": "Root Schema",
-    "required": [
-        "replicaCount",
-        "image",
-        "imagePullPolicy",
-        "service",
-        "probe",
-        "route",
-        "resources",
-        "nodeSelector",
-        "tolerations",
-        "affinity",
-        "pullSecret",
-        "vaultStorage",
-        "vaultSecret",
-        "vaultKey",
-        "vault"
-    ],
     "properties": {
         "replicaCount": {
             "type": "integer",
-            "default": 0,
-            "title": "The replicaCount Schema",
             "examples": [
                 1
             ]
         },
         "image": {
             "type": "string",
-            "default": "",
-            "title": "The image Schema",
             "examples": [
                 "quay.io/telescope/dashboard-react-app:latest"
             ]
         },
         "imagePullPolicy": {
             "type": "string",
-            "default": "",
-            "title": "The imagePullPolicy Schema",
             "examples": [
                 "Always"
             ]
         },
+        "backendUrl": {
+            "type": "string",
+            "examples": [
+                ""
+            ]
+        },
+        "nodeBuildDir": {
+            "type": "string",
+            "examples": [
+                "/opt/app-root/src/build"
+            ]
+        },
         "service": {
             "type": "object",
-            "default": {},
-            "title": "The service Schema",
-            "required": [
-                "name",
-                "type",
-                "port",
-                "targetport"
-            ],
             "properties": {
                 "name": {
                     "type": "string",
-                    "default": "",
-                    "title": "The name Schema",
                     "examples": [
                         "dashboard-react-app"
                     ]
                 },
                 "type": {
                     "type": "string",
-                    "default": "",
-                    "title": "The type Schema",
                     "examples": [
                         "ClusterIP"
                     ]
                 },
                 "port": {
                     "type": "integer",
-                    "default": 0,
-                    "title": "The port Schema",
                     "examples": [
                         80
                     ]
                 },
                 "targetport": {
                     "type": "integer",
-                    "default": 0,
-                    "title": "The targetport Schema",
                     "examples": [
                         3000
                     ]
@@ -99,25 +69,15 @@
         },
         "probe": {
             "type": "object",
-            "default": {},
-            "title": "The probe Schema",
-            "required": [
-                "readypath",
-                "livepath"
-            ],
             "properties": {
                 "readypath": {
                     "type": "string",
-                    "default": "",
-                    "title": "The readypath Schema",
                     "examples": [
                         "/"
                     ]
                 },
                 "livepath": {
                     "type": "string",
-                    "default": "",
-                    "title": "The livepath Schema",
                     "examples": [
                         "/"
                     ]
@@ -130,43 +90,26 @@
         },
         "route": {
             "type": "object",
-            "default": {},
-            "title": "The route Schema",
-            "required": [
-                "name",
-                "enabled",
-                "annotations",
-                "path"
-            ],
             "properties": {
                 "name": {
                     "type": "string",
-                    "default": "",
-                    "title": "The name Schema",
                     "examples": [
                         "dashboard-react-app"
                     ]
                 },
                 "enabled": {
                     "type": "boolean",
-                    "default": false,
-                    "title": "The enabled Schema",
                     "examples": [
                         true
                     ]
                 },
                 "annotations": {
                     "type": "object",
-                    "default": {},
-                    "title": "The annotations Schema",
-                    "required": [],
                     "properties": {},
                     "examples": [{}]
                 },
                 "path": {
                     "type": "string",
-                    "default": "",
-                    "title": "The path Schema",
                     "examples": [
                         "/"
                     ]
@@ -181,24 +124,17 @@
         },
         "resources": {
             "type": "null",
-            "default": null,
-            "title": "The resources Schema",
             "examples": [
                 null
             ]
         },
         "nodeSelector": {
             "type": "object",
-            "default": {},
-            "title": "The nodeSelector Schema",
-            "required": [],
             "properties": {},
             "examples": [{}]
         },
         "tolerations": {
             "type": "array",
-            "default": [],
-            "title": "The tolerations Schema",
             "items": {},
             "examples": [
                 []
@@ -206,42 +142,33 @@
         },
         "affinity": {
             "type": "object",
-            "default": {},
-            "title": "The affinity Schema",
-            "required": [],
             "properties": {},
             "examples": [{}]
         },
+        "env": {
+            "type": "array",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
         "pullSecret": {
             "type": "object",
-            "default": {},
-            "title": "The pullSecret Schema",
-            "required": [
-                "enabled",
-                "secretName",
-                "secretKey"
-            ],
             "properties": {
                 "enabled": {
                     "type": "boolean",
-                    "default": false,
-                    "title": "The enabled Schema",
                     "examples": [
                         false
                     ]
                 },
                 "secretName": {
                     "type": "string",
-                    "default": "",
-                    "title": "The secretName Schema",
                     "examples": [
                         "pull-secret"
                     ]
                 },
                 "secretKey": {
                     "type": "string",
-                    "default": "",
-                    "title": "The secretKey Schema",
                     "examples": [
                         ".dockerconfigjson"
                     ]
@@ -255,67 +182,39 @@
         },
         "vaultStorage": {
             "type": "string",
-            "default": "",
-            "title": "The vaultStorage Schema",
             "examples": [
                 "vault-backend"
             ]
         },
         "vaultSecret": {
             "type": "string",
-            "default": "",
-            "title": "The vaultSecret Schema",
             "examples": [
                 "vault-secret"
             ]
         },
         "vaultKey": {
             "type": "string",
-            "default": "",
-            "title": "The vaultKey Schema",
             "examples": [
                 "token"
             ]
         },
         "vault": {
             "type": "object",
-            "default": {},
-            "title": "The vault Schema",
-            "required": [
-                "registry2"
-            ],
             "properties": {
                 "registry2": {
                     "type": "object",
-                    "default": {},
-                    "title": "The registry2 Schema",
-                    "required": [
-                        "host",
-                        "user",
-                        "password"
-                    ],
                     "properties": {
                         "host": {
                             "type": "object",
-                            "default": {},
-                            "title": "The host Schema",
-                            "required": [
-                                "key",
-                                "property"
-                            ],
                             "properties": {
                                 "key": {
                                     "type": "string",
-                                    "default": "",
-                                    "title": "The key Schema",
                                     "examples": [
                                         "secret/registry2"
                                     ]
                                 },
                                 "property": {
                                     "type": "string",
-                                    "default": "",
-                                    "title": "The property Schema",
                                     "examples": [
                                         "host"
                                     ]
@@ -328,25 +227,15 @@
                         },
                         "user": {
                             "type": "object",
-                            "default": {},
-                            "title": "The user Schema",
-                            "required": [
-                                "key",
-                                "property"
-                            ],
                             "properties": {
                                 "key": {
                                     "type": "string",
-                                    "default": "",
-                                    "title": "The key Schema",
                                     "examples": [
                                         "secret/registry2"
                                     ]
                                 },
                                 "property": {
                                     "type": "string",
-                                    "default": "",
-                                    "title": "The property Schema",
                                     "examples": [
                                         "user"
                                     ]
@@ -359,25 +248,15 @@
                         },
                         "password": {
                             "type": "object",
-                            "default": {},
-                            "title": "The password Schema",
-                            "required": [
-                                "key",
-                                "property"
-                            ],
                             "properties": {
                                 "key": {
                                     "type": "string",
-                                    "default": "",
-                                    "title": "The key Schema",
                                     "examples": [
                                         "secret/registry2"
                                     ]
                                 },
                                 "property": {
                                     "type": "string",
-                                    "default": "",
-                                    "title": "The property Schema",
                                     "examples": [
                                         "password"
                                     ]
@@ -427,6 +306,8 @@
         "replicaCount": 1,
         "image": "quay.io/telescope/dashboard-react-app:latest",
         "imagePullPolicy": "Always",
+        "backendUrl": "",
+        "nodeBuildDir": "/opt/app-root/src/build",
         "service": {
             "name": "dashboard-react-app",
             "type": "ClusterIP",
@@ -447,6 +328,7 @@
         "nodeSelector": {},
         "tolerations": [],
         "affinity": {},
+        "env": [],
         "pullSecret": {
             "enabled": false,
             "secretName": "pull-secret",

@@ -3,6 +3,9 @@ replicaCount: 1
 image: quay.io/telescope/dashboard-react-app:latest
 imagePullPolicy: Always
 
+backendUrl: ""
+nodeBuildDir: /opt/app-root/src/build
+
 service:
   name: dashboard-react-app
   type: ClusterIP
@@ -34,6 +37,8 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+env: []
 
 pullSecret:
   enabled: false
