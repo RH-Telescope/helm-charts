@@ -1,0 +1,20 @@
+{{- if .Values.postgresql.storage.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "postgresql.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "postgresql.labels" . | nindent 4 }}
+  annotations:
+    kubernetes.io/reclaimPolicy: Delete 
+spec:
+{{- if .Values.postgresql.storage.storageClass }}
+  storageClassName: "{{ .Values.postgresql.storage.storageClass }}"
+{{- end }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.postgresql.storage.size }}
+{{- end }}
