@@ -21,6 +21,14 @@ entries:
     version: 0.1.0
   postgresql:
   - apiVersion: v2
+    created: "2023-01-05T19:36:02.476350277Z"
+    description: Postgresql Helm Chart
+    digest: 108140ca5876359b7db91869afb734ddef7cf17f7efaccf44de747389ddf4b15
+    name: postgresql
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/postgresql-0.3.1/postgresql-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     created: "2023-01-05T16:43:19.96336788Z"
     description: Postgresql Helm Chart
     digest: 94b716d596ee4bfbd8a9f716d29be75b7fc7d4de0fcc716ff8c27fe2c1ec3f61
@@ -82,4 +90,4 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-frontend-0.1.1/telescope-frontend-0.1.1.tgz
     version: 0.1.1
-generated: "2023-01-05T16:43:20.15320366Z"
+generated: "2023-01-05T19:36:02.476465078Z"
