@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "application.fullname" . }}
+  name: {{ include "telescope-backend.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ template "application.name" . }}
-    chart: {{ template "application.chart" . }}
+    app: {{ include "telescope-backend.fullname" . }}
+    chart: {{ template "telescope-backend.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -13,12 +13,12 @@ spec:
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: {{ template "application.name" . }}
+      app: {{ include "telescope-backend.fullname" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "application.name" . }}
+        app: {{ include "telescope-backend.fullname" . }}
         release: {{ .Release.Name }}
       annotations:
         alwaysRoll: {{ randAlphaNum 5 | quote }}
@@ -43,6 +43,19 @@ spec:
             httpGet:
               path: {{ .Values.probe.livepath }}
               port: http
+          env:
+            - name: QUARKUS_DATASOURCE_JDBC_URL
+              value: 'jdbc:postgresql://{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.database }}'
+            - name: QUARKUS_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.postgresql.secretName }}
+                  key: databasePassword
+            - name: QUARKUS_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.postgresql.secretName }}
+                  key: databaseUser
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}

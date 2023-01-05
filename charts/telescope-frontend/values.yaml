@@ -7,7 +7,6 @@ backendUrl: ""
 nodeBuildDir: /opt/app-root/src/build
 
 service:
-  name: dashboard-react-app
   type: ClusterIP
   port: 80
   targetport: 3000
@@ -17,10 +16,10 @@ probe:
   livepath: /
 
 route:
-  name: dashboard-react-app
   enabled: true
   annotations: {}
   path: /
+  hostname: ""
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious

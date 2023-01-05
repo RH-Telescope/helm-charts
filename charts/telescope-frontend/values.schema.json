@@ -35,12 +35,6 @@
         "service": {
             "type": "object",
             "properties": {
-                "name": {
-                    "type": "string",
-                    "examples": [
-                        "dashboard-react-app"
-                    ]
-                },
                 "type": {
                     "type": "string",
                     "examples": [
@@ -61,7 +55,6 @@
                 }
             },
             "examples": [{
-                "name": "dashboard-react-app",
                 "type": "ClusterIP",
                 "port": 80,
                 "targetport": 3000
@@ -91,12 +84,6 @@
         "route": {
             "type": "object",
             "properties": {
-                "name": {
-                    "type": "string",
-                    "examples": [
-                        "dashboard-react-app"
-                    ]
-                },
                 "enabled": {
                     "type": "boolean",
                     "examples": [
@@ -113,13 +100,19 @@
                     "examples": [
                         "/"
                     ]
+                },
+                "hostname": {
+                    "type": "string",
+                    "examples": [
+                        ""
+                    ]
                 }
             },
             "examples": [{
-                "name": "dashboard-react-app",
                 "enabled": true,
                 "annotations": {},
-                "path": "/"
+                "path": "/",
+                "hostname": ""
             }]
         },
         "resources": {
@@ -309,7 +302,6 @@
         "backendUrl": "",
         "nodeBuildDir": "/opt/app-root/src/build",
         "service": {
-            "name": "dashboard-react-app",
             "type": "ClusterIP",
             "port": 80,
             "targetport": 3000
@@ -319,10 +311,10 @@
             "livepath": "/"
         },
         "route": {
-            "name": "dashboard-react-app",
             "enabled": true,
             "annotations": {},
-            "path": "/"
+            "path": "/",
+            "hostname": ""
         },
         "resources": null,
         "nodeSelector": {},

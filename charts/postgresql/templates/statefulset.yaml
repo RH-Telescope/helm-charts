@@ -1,0 +1,81 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: {{ include "postgresql.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "postgresql.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        {{- include "postgresql.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      name: {{ include "postgresql.fullname" . }}
+      creationTimestamp: null
+      labels:
+        {{- include "postgresql.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: postgresql
+          env:
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "postgresql.fullname" . }}
+                  key: databasePassword
+            - name: POSTGRESQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "postgresql.fullname" . }}
+                  key: databaseUser
+            - name: POSTGRESQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "postgresql.fullname" . }}
+                  key: databaseName
+          ports:
+            - name: tcp-postgresql
+              containerPort: {{ .Values.postgresql.port }}
+              protocol: TCP
+{{- if .Values.postgresql.storage.enabled }}
+          volumeMounts:
+            - mountPath: /var/lib/pgsql/data
+              name: postgresdb
+{{- end }}
+          terminationMessagePolicy: File
+          image: "{{ .Values.postgresql.image }}"
+          livenessProbe:
+            failureThreshold: 6
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - exec pg_isready -U "$POSTGRESQL_USER" -d "dbname=$POSTGRESQL_DATABASE" -h 127.0.0.1 -p {{ .Values.postgresql.port }}
+          readinessProbe:
+            failureThreshold: 6
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - -e
+                - exec pg_isready -U "$POSTGRESQL_USER" -d "dbname=$POSTGRESQL_DATABASE" -h 127.0.0.1 -p {{ .Values.postgresql.port }}
+      serviceAccount: {{ include "postgresql.serviceAccountName" . }}
+      volumes:
+      - name: postgresdb
+{{- if .Values.postgresql.storage.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ include "postgresql.fullname" . }}
+{{ else }}
+        emptyDir: {}
+{{- end }}
+  serviceName: {{ include "postgresql.fullname" . }}

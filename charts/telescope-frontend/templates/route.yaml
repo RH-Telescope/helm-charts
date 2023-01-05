@@ -2,7 +2,7 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ .Values.route.name }}
+  name: {{ include "telescope-frontend.fullname" . }}
   namespace: {{ .Release.Namespace }}
 spec:
   {{- if .Values.route.hostname }}
@@ -16,5 +16,5 @@ spec:
     termination: edge
   to:
     kind: Service
-    name: {{ .Values.service.name }}
+    name: {{ include "telescope-frontend.fullname" . }}
 {{- end }}
