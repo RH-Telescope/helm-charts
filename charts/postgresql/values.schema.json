@@ -51,6 +51,12 @@
                         "telescope"
                     ]
                 },
+                "autogenPassword": {
+                    "type": "boolean",
+                    "examples": [
+                        true
+                    ]
+                },
                 "port": {
                     "type": "integer",
                     "examples": [
@@ -61,6 +67,12 @@
                     "type": "string",
                     "examples": [
                         "registry.redhat.io/rhel9/postgresql-13:latest"
+                    ]
+                },
+                "autogenImage": {
+                    "type": "string",
+                    "examples": [
+                        "registry.redhat.io/openshift4/ose-cli:latest"
                     ]
                 },
                 "resources": {
@@ -130,8 +142,10 @@
                 },
                 "user": "telescope",
                 "database": "telescope",
+                "autogenPassword": true,
                 "port": 5432,
                 "image": "registry.redhat.io/rhel9/postgresql-13:latest",
+                "autogenImage": "registry.redhat.io/openshift4/ose-cli:latest",
                 "resources": {
                     "limits": {
                         "cpu": "400m",
@@ -180,8 +194,10 @@
             },
             "user": "telescope",
             "database": "telescope",
+            "autogenPassword": true,
             "port": 5432,
             "image": "registry.redhat.io/rhel9/postgresql-13:latest",
+            "autogenImage": "registry.redhat.io/openshift4/ose-cli:latest",
             "resources": {
                 "limits": {
                     "cpu": "400m",

@@ -1,0 +1,34 @@
+{{- if .Values.postgresql.autogenPassword }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "postgresql.fullname" . }}-autogen
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    spec:
+      activeDeadlineSeconds: 600
+      restartPolicy: OnFailure
+      serviceAccount: {{ include "postgresql.fullname" . }}-autogen
+      containers:
+      - name: autogen
+        image: "{{ .Values.postgresql.autogenImage }}"
+        env:
+          - name: SECRET_NAME
+            value: {{ include "postgresql.fullname" . }}
+        command:
+          - /bin/bash
+          - -c
+          - |
+            #!/bin/bash
+
+            if [[ "$(oc get secret $SECRET_NAME -o jsonpath='{ .data.databasePassword }')" == "" ]]; then
+                echo "Database Password DOES NOT EXIST"
+                kubectl patch secret $SECRET_NAME --type=json -p "[{\"op\":\"add\",\"path\":\"/data/databasePassword\",\"value\":\"$(cat /dev/urandom | tr -dc '[:alpha:]' | fold -w ${1:-20} | head -n 1 | base64 -w0)\"}]"
+            else
+                echo "Database Password already exists"
+            fi
+{{- end }}
