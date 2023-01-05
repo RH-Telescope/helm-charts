@@ -25,5 +25,7 @@ helm upgrade -i <release_name> telescope/<chart_name>
 
 ## Charts
 
-* [dashboard-react-app](charts/dashboard-react-app)
+* [telescope-frontend](charts/telescope-frontend)
 * [telescope-backend](charts/telescope-backend)
+* [postgresql](charts/postgresql)
+
