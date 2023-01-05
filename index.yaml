@@ -19,6 +19,15 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/dashboard-react-app-0.1.0/dashboard-react-app-0.1.0.tgz
     version: 0.1.0
+  postgresql:
+  - apiVersion: v2
+    created: "2023-01-05T06:05:15.976803524Z"
+    description: Postgresql Helm Chart
+    digest: 1e8792a987ebaf435a947ddc8d4cc8ef666d9d0f0e54e43cebf61873ba7f0036
+    name: postgresql
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/postgresql-0.1.0/postgresql-0.1.0.tgz
+    version: 0.1.0
   telescope-backend:
   - apiVersion: v2
     created: "2022-09-17T19:09:17.415083284Z"
@@ -29,4 +38,4 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-backend-0.1.0/telescope-backend-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-05T06:05:01.615194144Z"
+generated: "2023-01-05T06:05:15.978153324Z"
