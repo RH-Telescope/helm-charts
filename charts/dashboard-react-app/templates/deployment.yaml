@@ -43,8 +43,17 @@ spec:
             httpGet:
               path: {{ .Values.probe.livepath }}
               port: http
+{{- if .Values.env }}
+          env:
+            {{- tpl (toYaml .Values.env) . | nindent 12 }}
+{{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: {{ .Values.nodeBuildDir }}/config.js
+              readOnly: true      
+              subPath: config.js
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
@@ -57,3 +66,10 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+      volumes:
+        - name: config
+          configMap: 
+            name: {{ template "application.fullname" . }}-config
+            items: 
+            - key: config.js
+              path: config.js
