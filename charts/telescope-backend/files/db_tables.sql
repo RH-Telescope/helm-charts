@@ -9,7 +9,7 @@ INSERT INTO domain(description) SELECT 'Secure Infrastructure' WHERE NOT EXISTS 
 INSERT INTO domain(description) SELECT 'Secure Data' WHERE NOT EXISTS (SELECT 1 FROM domain where description = 'Secure Data');
 INSERT INTO domain(description) SELECT 'Secure Code' WHERE NOT EXISTS (SELECT 1 FROM domain where description = 'Secure Code');
 INSERT INTO domain(description) SELECT 'Secure Integrations' WHERE NOT EXISTS (SELECT 1 FROM domain where description = 'Secure Integrations');
-INSERT INTO domain(description) SELECT 'Secure Monitoring and Logging' WHERE NOT EXISTS (SELECT 1 FROM domain where description = 'Secure Monitoring and Logging');
+INSERT INTO domain(description) SELECT 'Secure Monitoring & Logging' WHERE NOT EXISTS (SELECT 1 FROM domain where description = 'Secure Monitoring & Logging');
 
 -- 
 -- DROP TABLE capability;
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS flag (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-INSERT INTO flag(description) SELECT 'red' WHERE NOT EXISTS (SELECT 1 FROM flag where description = 'red');;
-INSERT INTO flag(description) SELECT 'green' WHERE NOT EXISTS (SELECT 1 FROM flag where description = 'green');;
+INSERT INTO flag(description) SELECT 'red' WHERE NOT EXISTS (SELECT 1 FROM flag where description = 'red');
+INSERT INTO flag(description) SELECT 'green' WHERE NOT EXISTS (SELECT 1 FROM flag where description = 'green');
 
 
