@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   dashboard-react-app:
   - apiVersion: v2
+    created: "2023-01-05T06:05:01.615184343Z"
+    description: A helm chart for Kubernetes to deploy the 'dashboard-react-app' application.
+    digest: a87e6f42672ac54996fcea74ccfc82c6dd35c4f577873d7592811b245e8473e4
+    name: dashboard-react-app
+    type: application
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/dashboard-react-app-0.2.0/dashboard-react-app-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2022-09-17T19:09:17.262792932Z"
     description: A helm chart for Kubernetes to deploy the 'dashboard-react-app' application.
     digest: 250d46a72afc84f811100484ce8d88095f2aeadbcc7a951ad877f41d667e5298
@@ -20,4 +29,4 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-backend-0.1.0/telescope-backend-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-17T19:09:17.415088384Z"
+generated: "2023-01-05T06:05:01.615194144Z"
