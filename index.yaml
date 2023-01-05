@@ -21,6 +21,14 @@ entries:
     version: 0.1.0
   postgresql:
   - apiVersion: v2
+    created: "2023-01-05T11:18:04.282040507Z"
+    description: Postgresql Helm Chart
+    digest: 4928b0faa0365df0639b606d89bccbb13706a3db9960120319c03ed29104ad10
+    name: postgresql
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/postgresql-0.2.0/postgresql-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2023-01-05T06:05:15.976803524Z"
     description: Postgresql Helm Chart
     digest: 1e8792a987ebaf435a947ddc8d4cc8ef666d9d0f0e54e43cebf61873ba7f0036
@@ -30,6 +38,15 @@ entries:
     version: 0.1.0
   telescope-backend:
   - apiVersion: v2
+    created: "2023-01-05T11:18:04.501921766Z"
+    description: A helm chart for Kubernetes to deploy the 'telescope-backend' application.
+    digest: 00bc05b1afa98d681895a6ba0e48efedb9b09b3e2086f7ac26e9314bfce18158
+    name: telescope-backend
+    type: application
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-backend-0.2.1/telescope-backend-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     created: "2022-09-17T19:09:17.415083284Z"
     description: A helm chart for Kubernetes to deploy the 'telescope-backend' application.
     digest: 4c7c7eda9fc6061cb26d89ff7be248c123e27eb98422bd775e0bf530f2dc1100
@@ -38,4 +55,14 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-backend-0.1.0/telescope-backend-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-05T06:05:15.978153324Z"
+  telescope-frontend:
+  - apiVersion: v2
+    created: "2023-01-05T11:18:04.734355123Z"
+    description: A helm chart for Kubernetes to deploy the 'telescope-frontend' application.
+    digest: 93a3c71bf400fa82ffcbecbcae99130ac470dfb5711fe4aa63721bd4d7693ccb
+    name: telescope-frontend
+    type: application
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-frontend-0.1.1/telescope-frontend-0.1.1.tgz
+    version: 0.1.1
+generated: "2023-01-05T11:18:04.734491029Z"
