@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "application.fullname" . }}
+  name: {{ include "telescope-frontend.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ template "application.name" . }}
-    chart: {{ template "application.chart" . }}
+    app: {{ include "telescope-frontend.fullname" . }}
+    chart: {{ template "telescope-frontend.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -13,12 +13,12 @@ spec:
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: {{ template "application.name" . }}
+      app: {{ include "telescope-frontend.fullname" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "application.name" . }}
+        app: {{ include "telescope-frontend.fullname" . }}
         release: {{ .Release.Name }}
       annotations:
         alwaysRoll: {{ randAlphaNum 5 | quote }}
@@ -69,7 +69,7 @@ spec:
       volumes:
         - name: config
           configMap: 
-            name: {{ template "application.fullname" . }}-config
+            name: {{ include "telescope-frontend.fullname" . }}-config
             items: 
             - key: config.js
               path: config.js

@@ -1,0 +1,66 @@
+{{- if .Values.postgresql.init }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Values.postgresql.secretName }}-seed"
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation # ,hook-succeeded
+spec:
+  template:
+    spec:
+      activeDeadlineSeconds: 600
+      restartPolicy: OnFailure
+      containers:
+      - name: seed-database
+        image: "{{ .Values.postgresql.image }}"
+        env:
+          - name: PGHOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.postgresql.secretName }}
+                key: databaseHost
+          - name: PGUSER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.postgresql.secretName }}
+                key: databaseUser
+          - name: PGDATABASE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.postgresql.secretName }}
+                key: databaseName
+          - name: PGPORT
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.postgresql.secretName }}
+                key: databasePort
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.postgresql.secretName }}
+                key: databasePassword
+        volumeMounts:
+          - name: postgresql-scripts
+            mountPath: /scripts
+        command:
+          - /bin/bash
+          - -c
+          - |
+            #!/bin/bash
+
+            echo "Waiting until PostgreSQL is Ready"
+            until pg_isready -h $PGHOST -U $PGUSER -p $PGPORT  --timeout=5 --quiet; do sleep 5; done;
+
+            echo "--- Executing Seed Scripts ---"
+            for f in /scripts/*; do
+              echo "Executing $(basename $f)"
+
+              psql -U $PGUSER -d $PGDATABASE -a -f $f
+            done
+      volumes:
+        - name: postgresql-scripts
+          configMap:
+            name: {{ include "telescope-backend.fullname" . }}-sql
+{{- end }}

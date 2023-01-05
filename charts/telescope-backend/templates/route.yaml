@@ -2,7 +2,7 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ .Values.route.name }}
+  name: {{ include "telescope-backend.fullname" . }}
   namespace: {{ .Release.Namespace }}
 spec:
   {{- if .Values.route.hostname }}

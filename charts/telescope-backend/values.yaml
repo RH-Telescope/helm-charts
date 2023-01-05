@@ -18,6 +18,7 @@ route:
   enabled: true
   annotations: {}
   path: /
+  hostname: ""
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -59,3 +60,15 @@ vault:
     password:
       key: secret/registry2
       property: password
+
+postgresql:
+  external: false
+  init: true
+  secretName: postgresql
+  host: postgresql
+  port: 5432
+  username: ""
+  password: ""
+  adminPassword: ""
+  database: "telescope"
+  image: registry.redhat.io/rhel9/postgresql-13:latest

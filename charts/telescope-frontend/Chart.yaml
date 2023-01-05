@@ -1,9 +1,9 @@
 apiVersion: v2
-name: dashboard-react-app
+name: telescope-frontend
 description: >-
-  A helm chart for Kubernetes to deploy the 'dashboard-react-app' application.
+  A helm chart for Kubernetes to deploy the 'telescope-frontend' application.
 type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.2.0
+version: 0.1.0

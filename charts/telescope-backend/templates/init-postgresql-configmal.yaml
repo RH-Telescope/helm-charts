@@ -1,0 +1,14 @@
+
+{{- if .Values.postgresql.init }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "telescope-backend.fullname" . }}-sql
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-2"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+data:
+{{ (.Files.Glob "files/*.sql").AsConfig | indent 2 }}
+{{- end }}
