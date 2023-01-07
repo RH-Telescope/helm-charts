@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+      "charts": {
+          "type": "object",
+          "properties": {
+              "postgresql": {
+                  "type": "object",
+                  "properties": {
+                      "enabled": {
+                          "type": "boolean",
+                          "examples": [
+                              true
+                          ]
+                      }
+                  },
+                  "examples": [{
+                      "enabled": true
+                  }]
+              },
+              "telescope-backend": {
+                  "type": "object",
+                  "properties": {
+                      "enabled": {
+                          "type": "boolean",
+                          "examples": [
+                              true
+                          ]
+                      }
+                  },
+                  "examples": [{
+                      "enabled": true
+                  }]
+              },
+              "telescope-frontend": {
+                  "type": "object",
+                  "properties": {
+                      "enabled": {
+                          "type": "boolean",
+                          "examples": [
+                              true
+                          ]
+                      }
+                  },
+                  "examples": [{
+                      "enabled": true
+                  }]
+              }
+          },
+          "examples": [{
+              "postgresql": {
+                  "enabled": true
+              },
+              "telescope-backend": {
+                  "enabled": true
+              },
+              "telescope-frontend": {
+                  "enabled": true
+              }
+          }]
+      },
+      "destinationServer": {
+          "type": "string",
+          "examples": [
+              "https://kubernetes.default.svc"
+          ]
+      },
+      "repoURL": {
+          "type": "string",
+          "examples": [
+              "https://rh-telescope.github.io/helm-charts"
+          ]
+      },
+      "chartVersion": {
+          "type": "string",
+          "examples": [
+              "x"
+          ]
+      },
+      "gitOpsNamespace": {
+          "type": "string",
+          "examples": [
+              "openshift-gitops"
+          ]
+      },
+      "defaultSyncPolicy": {
+          "type": "object",
+          "properties": {
+              "automated": {
+                  "type": "object",
+                  "properties": {
+                      "prune": {
+                          "type": "boolean",
+                          "examples": [
+                              false
+                          ]
+                      },
+                      "selfHeal": {
+                          "type": "boolean",
+                          "examples": [
+                              true
+                          ]
+                      }
+                  },
+                  "examples": [{
+                      "prune": false,
+                      "selfHeal": true
+                  }]
+              },
+              "retry": {
+                  "type": "object",
+                  "properties": {
+                      "limit": {
+                          "type": "integer",
+                          "examples": [
+                              5
+                          ]
+                      },
+                      "backoff": {
+                          "type": "object",
+                          "properties": {
+                              "duration": {
+                                  "type": "string",
+                                  "examples": [
+                                      "15s"
+                                  ]
+                              },
+                              "factor": {
+                                  "type": "integer",
+                                  "examples": [
+                                      2
+                                  ]
+                              },
+                              "maxDuration": {
+                                  "type": "string",
+                                  "examples": [
+                                      "5m"
+                                  ]
+                              }
+                          },
+                          "examples": [{
+                              "duration": "15s",
+                              "factor": 2,
+                              "maxDuration": "5m"
+                          }]
+                      }
+                  },
+                  "examples": [{
+                      "limit": 5,
+                      "backoff": {
+                          "duration": "15s",
+                          "factor": 2,
+                          "maxDuration": "5m"
+                      }
+                  }]
+              }
+          },
+          "examples": [{
+              "automated": {
+                  "prune": false,
+                  "selfHeal": true
+              },
+              "retry": {
+                  "limit": 5,
+                  "backoff": {
+                      "duration": "15s",
+                      "factor": 2,
+                      "maxDuration": "5m"
+                  }
+              }
+          }]
+      }
+  },
+  "examples": [{
+      "charts": {
+          "postgresql": {
+              "enabled": true
+          },
+          "telescope-backend": {
+              "enabled": true
+          },
+          "telescope-frontend": {
+              "enabled": true
+          }
+      },
+      "destinationServer": "https://kubernetes.default.svc",
+      "repoURL": "https://rh-telescope.github.io/helm-charts",
+      "chartVersion": "x",
+      "gitOpsNamespace": "openshift-gitops",
+      "defaultSyncPolicy": {
+          "automated": {
+              "prune": false,
+              "selfHeal": true
+          },
+          "retry": {
+              "limit": 5,
+              "backoff": {
+                  "duration": "15s",
+                  "factor": 2,
+                  "maxDuration": "5m"
+              }
+          }
+      }
+  }]
+}

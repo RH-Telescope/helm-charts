@@ -1,0 +1,32 @@
+---
+
+charts:
+  postgresql:
+    enabled: true
+  telescope-backend:
+    enabled: true
+  telescope-frontend:
+    enabled: true
+
+## Allows for prefixing the name of the Argo CD Application
+# applicationPrefix: prefix
+
+## Destination for Helm chart to be deployed (defaults to current namespace)
+## Can also be specified underneath each chart
+# destinationNamespace: prefix
+
+destinationServer: https://kubernetes.default.svc
+repoURL: https://rh-telescope.github.io/helm-charts
+chartVersion: x
+gitOpsNamespace: openshift-gitops
+
+defaultSyncPolicy:
+  automated:
+    prune: false
+    selfHeal: true
+  retry:
+    limit: 5
+    backoff:
+      duration: 15s
+      factor: 2
+      maxDuration: 5m
