@@ -1,0 +1,28 @@
+{{- range $chartName, $chart := .Values.charts }}
+{{- if $chart.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ hasKey $.Values "applicationPrefix" | ternary (printf "%s-%s" $.Values.applicationPrefix (default $chartName $chart.name)) (default $chartName $chart.name) }}
+  namespace:  {{ default $.Values.gitOpsNamespace $chart.gitOpsNamespace }}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: {{ default $.Release.Namespace (default $.Values.destinationNamespace $chart.destinationNamespace) }} 
+    server: {{ default $.Values.destinationServer $chart.destinationServer }}
+  project: {{ default "default" $chart.project }}
+  source:
+    chart: {{ default $chartName (default $chart.name $chart.repoChart) }}
+    repoURL: {{ default $.Values.repoURL $chart.repoURL }}
+    targetRevision: {{ default $.Values.chartVersion $chart.chartVersion }}
+    {{- if $chart.values }}
+    helm:
+      values: |
+        {{- toYaml $chart.values | nindent 8 }}
+    {{- end }}
+  syncPolicy:
+    {{- toYaml (default $.Values.defaultSyncPolicy $chart.syncPolicy) | nindent 4 }}
+{{- end }}
+{{- end }}
