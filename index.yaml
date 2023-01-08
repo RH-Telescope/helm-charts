@@ -52,6 +52,15 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/postgresql-0.1.0/postgresql-0.1.0.tgz
     version: 0.1.0
+  telescope-argocd:
+  - apiVersion: v2
+    created: "2023-01-08T06:06:54.560520338Z"
+    description: Chart to deploy Argo CD Applications Supporting Telescope
+    digest: 030285736a2a085e2b2f9d5a9cfb9568e67f910e953815000f123559c537b69f
+    name: telescope-argocd
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-argocd-0.1.0/telescope-argocd-0.1.0.tgz
+    version: 0.1.0
   telescope-backend:
   - apiVersion: v2
     created: "2023-01-05T16:43:20.15318466Z"
@@ -90,4 +99,4 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-frontend-0.1.1/telescope-frontend-0.1.1.tgz
     version: 0.1.1
-generated: "2023-01-05T19:36:02.476465078Z"
+generated: "2023-01-08T06:06:54.560540638Z"
