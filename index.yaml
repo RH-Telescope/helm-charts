@@ -21,6 +21,14 @@ entries:
     version: 0.1.0
   postgresql:
   - apiVersion: v2
+    created: "2023-01-09T19:44:21.901371219Z"
+    description: Postgresql Helm Chart
+    digest: af5efc2f45c34b7c21f0e6673716d1dda3e20f872b1808f0a2b618a5b9fd6b94
+    name: postgresql
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/postgresql-0.3.2/postgresql-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
     created: "2023-01-05T19:36:02.476350277Z"
     description: Postgresql Helm Chart
     digest: 108140ca5876359b7db91869afb734ddef7cf17f7efaccf44de747389ddf4b15
@@ -63,6 +71,15 @@ entries:
     version: 0.1.0
   telescope-backend:
   - apiVersion: v2
+    created: "2023-01-09T19:44:22.041548603Z"
+    description: A helm chart for Kubernetes to deploy the 'telescope-backend' application.
+    digest: 61eb42df1eb36ef5608692e52ae8d8f734f590b8875f152c1074c088e4453d07
+    name: telescope-backend
+    type: application
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-backend-0.3.1/telescope-backend-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     created: "2023-01-05T16:43:20.15318466Z"
     description: A helm chart for Kubernetes to deploy the 'telescope-backend' application.
     digest: d548eaf2e853b03e921ad7d364edca7894612c8ee342407bc99cc1c3c7fb3813
@@ -99,4 +116,4 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-frontend-0.1.1/telescope-frontend-0.1.1.tgz
     version: 0.1.1
-generated: "2023-01-08T06:06:54.560540638Z"
+generated: "2023-01-09T19:44:22.041734206Z"
