@@ -17,8 +17,9 @@ spec:
     chart: {{ default $chartName (default $chart.name $chart.repoChart) }}
     repoURL: {{ default $.Values.repoURL $chart.repoURL }}
     targetRevision: {{ default $.Values.chartVersion $chart.chartVersion }}
-    {{- if $chart.values }}
     helm:
+      releaseName: {{ default $chartName (default $chart.name $chart.repoChart) }}
+    {{- if $chart.values }}
       values: |
         {{- toYaml $chart.values | nindent 8 }}
     {{- end }}
