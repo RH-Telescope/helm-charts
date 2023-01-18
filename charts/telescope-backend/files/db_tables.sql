@@ -12,6 +12,21 @@ INSERT INTO domain(description) SELECT 'Secure Integrations' WHERE NOT EXISTS (S
 INSERT INTO domain(description) SELECT 'Secure Monitoring & Logging' WHERE NOT EXISTS (SELECT 1 FROM domain where description = 'Secure Monitoring & Logging');
 
 -- 
+
+-- DROP TABLE integrations
+CREATE TABLE IF NOT EXISTS integrations (
+    integration_id bigint NOT NULL,
+    capability_id integer,
+    url character varying(300),
+    "user" character varying(100),
+    password character varying(100),
+    token character varying(5000),
+    success_criteria character varying(100),
+    last_update date,
+    integration_name character varying(100)
+);
+
+
 -- DROP TABLE capability;
 
 CREATE TABLE IF NOT EXISTS capability (
