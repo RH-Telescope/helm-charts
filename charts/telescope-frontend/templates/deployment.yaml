@@ -21,7 +21,7 @@ spec:
         app: {{ include "telescope-frontend.fullname" . }}
         release: {{ .Release.Name }}
       annotations:
-        alwaysRoll: {{ randAlphaNum 5 | quote }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       {{- if .Values.pullSecret.enabled }}
       imagePullSecrets:
