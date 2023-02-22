@@ -154,11 +154,40 @@ CREATE TABLE public.integrations (
     token character varying(5000),
     success_criteria character varying(100),
     last_update timestamp with time zone,
-    integration_name character varying(100)
+    integration_name character varying(100),
+    integration_method_id bigint
 );
 
 
-ALTER TABLE public.integrations OWNER TO postgres;
+ALTER TABLE public.integrations OWNER TO telescope;
+
+--
+-- Name: integration_methods; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.integration_methods (
+    integration_method_name character varying,
+    id bigint
+);
+
+
+ALTER TABLE public.integration_methods OWNER TO postgres;
+
+--
+-- Data for Name: integration_methods; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.integration_methods (integration_method_name, id) FROM stdin;
+telescopeComplianceRhacs	1
+\.
+
+
+--
+-- Name: TABLE integration_methods; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.integration_methods TO telescope;
+
 
 --
 -- Name: capability id; Type: DEFAULT; Schema: public; Owner: telescope
