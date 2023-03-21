@@ -25,7 +25,9 @@ helm upgrade -i <release_name> telescope/<chart_name>
 
 ## Charts
 
+* [telescope-argocd](charts/telescope-argocd)
 * [telescope-frontend](charts/telescope-frontend)
 * [telescope-backend](charts/telescope-backend)
+* [telescope-toggle](charts/telescope-toggle)
 * [postgresql](charts/postgresql)
 

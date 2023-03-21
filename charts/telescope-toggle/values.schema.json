@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+      "image": {
+          "type": "string",
+          "examples": [
+              "quay.io/telescope/telescope-toggle:latest"
+          ]
+      },
+      "imagePullPolicy": {
+          "type": "string",
+          "examples": [
+              "Always"
+          ]
+      },
+      "service": {
+          "type": "object",
+          "properties": {
+              "name": {
+                  "type": "string",
+                  "examples": [
+                      "telescope-toggle"
+                  ]
+              },
+              "type": {
+                  "type": "string",
+                  "examples": [
+                      "ClusterIP"
+                  ]
+              },
+              "port": {
+                  "type": "integer",
+                  "examples": [
+                      80
+                  ]
+              },
+              "targetport": {
+                  "type": "integer",
+                  "examples": [
+                      8080
+                  ]
+              }
+          },
+          "examples": [{
+              "name": "telescope-toggle",
+              "type": "ClusterIP",
+              "port": 80,
+              "targetport": 8080
+          }]
+      },
+      "probe": {
+          "type": "object",
+          "properties": {
+              "readypath": {
+                  "type": "string",
+                  "examples": [
+                      "/"
+                  ]
+              },
+              "livepath": {
+                  "type": "string",
+                  "examples": [
+                      "/"
+                  ]
+              }
+          },
+          "examples": [{
+              "readypath": "/",
+              "livepath": "/"
+          }]
+      },
+      "route": {
+          "type": "object",
+          "properties": {
+              "name": {
+                  "type": "string",
+                  "examples": [
+                      "telescope-toggle"
+                  ]
+              },
+              "enabled": {
+                  "type": "boolean",
+                  "examples": [
+                      true
+                  ]
+              },
+              "annotations": {
+                  "type": "object",
+                  "properties": {},
+                  "examples": [{}]
+              },
+              "path": {
+                  "type": "string",
+                  "examples": [
+                      "/"
+                  ]
+              },
+              "hostname": {
+                  "type": "string",
+                  "examples": [
+                      ""
+                  ]
+              }
+          },
+          "examples": [{
+              "name": "telescope-toggle",
+              "enabled": true,
+              "annotations": {},
+              "path": "/",
+              "hostname": ""
+          }]
+      },
+      "resources": {
+          "type": "null",
+          "examples": [
+              null
+          ]
+      },
+      "nodeSelector": {
+          "type": "object",
+          "properties": {},
+          "examples": [{}]
+      },
+      "tolerations": {
+          "type": "array",
+          "items": {},
+          "examples": [
+              []
+          ]
+      },
+      "affinity": {
+          "type": "object",
+          "properties": {},
+          "examples": [{}]
+      },
+      "pullSecret": {
+          "type": "object",
+          "properties": {
+              "enabled": {
+                  "type": "boolean",
+                  "examples": [
+                      false
+                  ]
+              },
+              "secretName": {
+                  "type": "string",
+                  "examples": [
+                      "pull-secret"
+                  ]
+              },
+              "secretKey": {
+                  "type": "string",
+                  "examples": [
+                      ".dockerconfigjson"
+                  ]
+              }
+          },
+          "examples": [{
+              "enabled": false,
+              "secretName": "pull-secret",
+              "secretKey": ".dockerconfigjson"
+          }]
+      },
+      "postgresql": {
+          "type": "object",
+          "properties": {
+              "external": {
+                  "type": "boolean",
+                  "examples": [
+                      false
+                  ]
+              },
+              "secretName": {
+                  "type": "string",
+                  "examples": [
+                      "postgresql"
+                  ]
+              },
+              "host": {
+                  "type": "string",
+                  "examples": [
+                      "postgresql"
+                  ]
+              },
+              "port": {
+                  "type": "integer",
+                  "examples": [
+                      5432
+                  ]
+              },
+              "username": {
+                  "type": "string",
+                  "examples": [
+                      ""
+                  ]
+              },
+              "password": {
+                  "type": "string",
+                  "examples": [
+                      ""
+                  ]
+              },
+              "adminPassword": {
+                  "type": "string",
+                  "examples": [
+                      ""
+                  ]
+              },
+              "database": {
+                  "type": "string",
+                  "examples": [
+                      "telescope"
+                  ]
+              }
+          },
+          "examples": [{
+              "external": false,
+              "secretName": "postgresql",
+              "host": "postgresql",
+              "port": 5432,
+              "username": "",
+              "password": "",
+              "adminPassword": "",
+              "database": "telescope"
+          }]
+      }
+  },
+  "examples": [{
+      "image": "quay.io/telescope/telescope-toggle:latest",
+      "imagePullPolicy": "Always",
+      "service": {
+          "name": "telescope-toggle",
+          "type": "ClusterIP",
+          "port": 80,
+          "targetport": 8080
+      },
+      "probe": {
+          "readypath": "/",
+          "livepath": "/"
+      },
+      "route": {
+          "name": "telescope-toggle",
+          "enabled": true,
+          "annotations": {},
+          "path": "/",
+          "hostname": ""
+      },
+      "resources": null,
+      "nodeSelector": {},
+      "tolerations": [],
+      "affinity": {},
+      "pullSecret": {
+          "enabled": false,
+          "secretName": "pull-secret",
+          "secretKey": ".dockerconfigjson"
+      },
+      "postgresql": {
+          "external": false,
+          "secretName": "postgresql",
+          "host": "postgresql",
+          "port": 5432,
+          "username": "",
+          "password": "",
+          "adminPassword": "",
+          "database": "telescope"
+      }
+  }]
+}

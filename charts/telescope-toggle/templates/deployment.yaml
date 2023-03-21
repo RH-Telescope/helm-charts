@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "telescope-toggle.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "telescope-toggle.fullname" . }}
+    chart: {{ template "telescope-toggle.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: {{ include "telescope-toggle.fullname" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "telescope-toggle.fullname" . }}
+        release: {{ .Release.Name }}
+      annotations:
+        alwaysRoll: {{ randAlphaNum 5 | quote }}
+    spec:
+      {{- if .Values.pullSecret.enabled }}
+      imagePullSecrets:
+        - name: {{ .Values.pullSecret.secretName }}
+      {{- end}}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+          - name: PG_HOST
+            valueFrom:
+              secretKeyRef:
+                key: databaseHost
+                name: {{ .Values.postgresql.secretName }}
+          - name: PG_DATABASE
+            valueFrom:
+              secretKeyRef:
+                key: databaseName
+                name: {{ .Values.postgresql.secretName }}
+          - name: PG_USER
+            valueFrom:
+              secretKeyRef:
+                key: databaseUser
+                name: {{ .Values.postgresql.secretName }}
+          - name: PG_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: databasePassword
+                name: {{ .Values.postgresql.secretName }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.targetport }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.probe.readypath }}
+              port: http
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.probe.livepath }}
+              port: http
+{{- if .Values.env }}
+          env:
+            {{- tpl (toYaml .Values.env) . | nindent 12 }}
+{{- end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
