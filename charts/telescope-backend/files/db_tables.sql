@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 13.7
--- Dumped by pg_dump version 13.7
+-- Dumped from database version 14.3
+-- Dumped by pg_dump version 14.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -128,7 +128,7 @@ ALTER SEQUENCE public.flag_id_seq OWNED BY public.flag.id;
 
 
 --
--- Name: integration_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: integration_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
 --
 
 CREATE SEQUENCE public.integration_id_seq
@@ -139,10 +139,43 @@ CREATE SEQUENCE public.integration_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.integration_id_seq OWNER TO postgres;
+ALTER TABLE public.integration_id_seq OWNER TO telescope;
 
 --
--- Name: integrations; Type: TABLE; Schema: public; Owner: postgres
+-- Name: integration_methods; Type: TABLE; Schema: public; Owner: telescope
+--
+
+CREATE TABLE public.integration_methods (
+    integration_method_name character varying,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.integration_methods OWNER TO telescope;
+
+--
+-- Name: integration_methods_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
+--
+
+CREATE SEQUENCE public.integration_methods_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 1000
+    CACHE 1;
+
+
+ALTER TABLE public.integration_methods_id_seq OWNER TO telescope;
+
+--
+-- Name: integration_methods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: telescope
+--
+
+ALTER SEQUENCE public.integration_methods_id_seq OWNED BY public.integration_methods.id;
+
+
+--
+-- Name: integrations; Type: TABLE; Schema: public; Owner: telescope
 --
 
 CREATE TABLE public.integrations (
@@ -160,34 +193,6 @@ CREATE TABLE public.integrations (
 
 
 ALTER TABLE public.integrations OWNER TO telescope;
-
---
--- Name: integration_methods; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.integration_methods (
-    integration_method_name character varying,
-    id bigint
-);
-
-
-ALTER TABLE public.integration_methods OWNER TO postgres;
-
---
--- Data for Name: integration_methods; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.integration_methods (integration_method_name, id) FROM stdin;
-telescopeComplianceRhacs	1
-\.
-
-
---
--- Name: TABLE integration_methods; Type: ACL; Schema: public; Owner: postgres
---
-
-GRANT ALL ON TABLE public.integration_methods TO telescope;
-
 
 --
 -- Name: capability id; Type: DEFAULT; Schema: public; Owner: telescope
@@ -211,26 +216,33 @@ ALTER TABLE ONLY public.flag ALTER COLUMN id SET DEFAULT nextval('public.flag_id
 
 
 --
+-- Name: integration_methods id; Type: DEFAULT; Schema: public; Owner: telescope
+--
+
+ALTER TABLE ONLY public.integration_methods ALTER COLUMN id SET DEFAULT nextval('public.integration_methods_id_seq'::regclass);
+
+
+--
 -- Data for Name: capability; Type: TABLE DATA; Schema: public; Owner: telescope
 --
 
 COPY public.capability (id, domain_id, flag_id, description, created_at) FROM stdin;
-2	1	1	Container Protection	2023-01-10 14:23:32.664584
-1	1	2	Platform Hardening	2023-01-10 14:23:32.663008
-3	1	2	Secure Images	2023-01-10 14:23:32.665301
-7	2	1	Loss Prevention	2023-01-10 14:23:32.66816
-4	2	1	Classification	2023-01-10 14:23:32.666047
-6	2	2	Encryption	2023-01-10 14:23:32.667418
-5	2	2	Vulnerability Scanning	2023-01-10 14:23:32.666761
-9	3	1	Dynamic Code Analysis	2023-01-10 14:23:32.669415
-8	3	1	Static Code Analysis	2023-01-10 14:23:32.6688
-10	3	2	Vulnerability Assessment	2023-01-10 14:23:32.670156
-13	4	1	Exposure Protection	2023-01-10 14:23:32.672604
-14	4	2	Secure Protocols	2023-01-10 14:23:32.673532
-12	4	2	Traffic Analysis	2023-01-10 14:23:32.671502
-11	4	2	Authentication	2023-01-10 14:23:32.670834
-16	5	1	Log Centralization	2023-01-10 14:23:32.675072
-15	5	1	Access Monitoring	2023-01-10 14:23:32.674359
+2	2	8	Classification	2023-01-05 12:05:28.270549
+8	1	2	Platform Hardening	2023-01-05 12:06:29.110498
+1	1	2	Secure Images	2023-01-05 12:05:28.265165
+9	1	2	Container Protection	2023-01-05 12:06:38.023359
+3	2	2	Encryption	2023-01-05 12:05:28.272751
+4	2	2	Loss Prevention	2023-01-05 12:05:28.274548
+10	2	2	Vulnerability Scanning	2023-01-05 12:06:50.545384
+11	3	1	Static Code Analysis	2023-01-05 12:06:50.558534
+12	3	1	Dynamic Code Analysis	2023-01-05 12:06:50.559867
+13	3	2	Vulnerability Assessment	2023-01-05 12:06:50.560706
+7	4	1	Secure Protocols	2023-01-05 12:05:28.280203
+14	4	1	Exposure Protection	2023-01-05 12:06:50.562267
+5	4	2	Authentication	2023-01-05 12:05:28.276929
+6	4	2	Traffic Analysis	2023-01-05 12:05:28.278372
+15	5	2	Access Monitoring	2023-01-05 12:06:50.563393
+16	5	2	Log Centralization	2023-01-05 12:06:50.56422
 \.
 
 
@@ -239,11 +251,11 @@ COPY public.capability (id, domain_id, flag_id, description, created_at) FROM st
 --
 
 COPY public.domain (id, description, created_at) FROM stdin;
-1	Secure Infrastructure	2023-01-10 14:23:32.645893
-2	Secure Data	2023-01-10 14:23:32.656684
-3	Secure Code	2023-01-10 14:23:32.657379
-4	Secure Integrations	2023-01-10 14:23:32.658077
-5	Secure Monitoring & Logging	2023-01-10 14:23:32.658706
+1	Secure Infrastructure	2023-01-05 12:04:58.133484
+2	Secure Data	2023-01-05 12:04:58.145907
+3	Secure Code	2023-01-05 12:04:58.147519
+4	Secure Integrations	2023-01-05 12:04:58.149359
+5	Secure Monitoring & Logging	2023-01-05 12:04:58.151347
 \.
 
 
@@ -252,16 +264,17 @@ COPY public.domain (id, description, created_at) FROM stdin;
 --
 
 COPY public.flag (id, description, created_at) FROM stdin;
-1	red	2023-01-10 14:23:32.679703
-2	green	2023-01-10 14:23:32.680638
+1	red	2023-01-05 12:06:10.998784
+2	green	2023-01-05 12:06:17.838214
 \.
 
 
 --
--- Data for Name: integrations; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: integration_methods; Type: TABLE DATA; Schema: public; Owner: telescope
 --
 
-COPY public.integrations (integration_id, capability_id, url, "user", password, token, success_criteria, last_update, integration_name) FROM stdin;
+COPY public.integration_methods (integration_method_name, id) FROM stdin;
+telescopeComplianceRhacs	1
 \.
 
 
@@ -269,7 +282,7 @@ COPY public.integrations (integration_id, capability_id, url, "user", password, 
 -- Name: capability_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
-SELECT pg_catalog.setval('public.capability_id_seq', 22, true);
+SELECT pg_catalog.setval('public.capability_id_seq', 16, true);
 
 
 --
@@ -287,10 +300,17 @@ SELECT pg_catalog.setval('public.flag_id_seq', 2, true);
 
 
 --
--- Name: integration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: integration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
-SELECT pg_catalog.setval('public.integration_id_seq', 2, true);
+SELECT pg_catalog.setval('public.integration_id_seq', 10, true);
+
+
+--
+-- Name: integration_methods_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
+--
+
+SELECT pg_catalog.setval('public.integration_methods_id_seq', 3, true);
 
 
 --
@@ -318,17 +338,18 @@ ALTER TABLE ONLY public.flag
 
 
 --
--- Name: SEQUENCE integration_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: integrations integrations_pkey; Type: CONSTRAINT; Schema: public; Owner: telescope
 --
 
-GRANT SELECT,USAGE ON SEQUENCE public.integration_id_seq TO telescope;
+ALTER TABLE ONLY public.integrations
+    ADD CONSTRAINT integrations_pkey PRIMARY KEY (integration_id);
 
 
 --
--- Name: TABLE integrations; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE integration_methods; Type: ACL; Schema: public; Owner: telescope
 --
 
-GRANT ALL ON TABLE public.integrations TO telescope;
+GRANT ALL ON TABLE public.integration_methods TO telescope;
 
 
 --
