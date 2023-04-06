@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: capability; Type: TABLE; Schema: public; Owner: postgres
+-- Name: capability; Type: TABLE; Schema: public; Owner: telescope
 --
 
 CREATE TABLE public.capability (
@@ -33,10 +33,10 @@ CREATE TABLE public.capability (
 );
 
 
-ALTER TABLE public.capability OWNER TO postgres;
+ALTER TABLE public.capability OWNER TO telescope;
 
 --
--- Name: capability_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: capability_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
 --
 
 CREATE SEQUENCE public.capability_id_seq
@@ -48,17 +48,17 @@ CREATE SEQUENCE public.capability_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.capability_id_seq OWNER TO postgres;
+ALTER TABLE public.capability_id_seq OWNER TO telescope;
 
 --
--- Name: capability_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: capability_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: telescope
 --
 
 ALTER SEQUENCE public.capability_id_seq OWNED BY public.capability.id;
 
 
 --
--- Name: domain; Type: TABLE; Schema: public; Owner: postgres
+-- Name: domain; Type: TABLE; Schema: public; Owner: telescope
 --
 
 CREATE TABLE public.domain (
@@ -68,10 +68,10 @@ CREATE TABLE public.domain (
 );
 
 
-ALTER TABLE public.domain OWNER TO postgres;
+ALTER TABLE public.domain OWNER TO telescope;
 
 --
--- Name: domain_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: domain_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
 --
 
 CREATE SEQUENCE public.domain_id_seq
@@ -83,17 +83,17 @@ CREATE SEQUENCE public.domain_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.domain_id_seq OWNER TO postgres;
+ALTER TABLE public.domain_id_seq OWNER TO telescope;
 
 --
--- Name: domain_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: domain_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: telescope
 --
 
 ALTER SEQUENCE public.domain_id_seq OWNED BY public.domain.id;
 
 
 --
--- Name: flag; Type: TABLE; Schema: public; Owner: postgres
+-- Name: flag; Type: TABLE; Schema: public; Owner: telescope
 --
 
 CREATE TABLE public.flag (
@@ -103,10 +103,10 @@ CREATE TABLE public.flag (
 );
 
 
-ALTER TABLE public.flag OWNER TO postgres;
+ALTER TABLE public.flag OWNER TO telescope;
 
 --
--- Name: flag_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: flag_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
 --
 
 CREATE SEQUENCE public.flag_id_seq
@@ -118,17 +118,17 @@ CREATE SEQUENCE public.flag_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.flag_id_seq OWNER TO postgres;
+ALTER TABLE public.flag_id_seq OWNER TO telescope;
 
 --
--- Name: flag_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: flag_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: telescope
 --
 
 ALTER SEQUENCE public.flag_id_seq OWNED BY public.flag.id;
 
 
 --
--- Name: integration_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: integration_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
 --
 
 CREATE SEQUENCE public.integration_id_seq
@@ -139,10 +139,10 @@ CREATE SEQUENCE public.integration_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.integration_id_seq OWNER TO postgres;
+ALTER TABLE public.integration_id_seq OWNER TO telescope;
 
 --
--- Name: integration_methods; Type: TABLE; Schema: public; Owner: postgres
+-- Name: integration_methods; Type: TABLE; Schema: public; Owner: telescope
 --
 
 CREATE TABLE public.integration_methods (
@@ -151,10 +151,10 @@ CREATE TABLE public.integration_methods (
 );
 
 
-ALTER TABLE public.integration_methods OWNER TO postgres;
+ALTER TABLE public.integration_methods OWNER TO telescope;
 
 --
--- Name: integration_methods_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: integration_methods_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
 --
 
 CREATE SEQUENCE public.integration_methods_id_seq
@@ -165,17 +165,17 @@ CREATE SEQUENCE public.integration_methods_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.integration_methods_id_seq OWNER TO postgres;
+ALTER TABLE public.integration_methods_id_seq OWNER TO telescope;
 
 --
--- Name: integration_methods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: integration_methods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: telescope
 --
 
 ALTER SEQUENCE public.integration_methods_id_seq OWNED BY public.integration_methods.id;
 
 
 --
--- Name: integrations; Type: TABLE; Schema: public; Owner: postgres
+-- Name: integrations; Type: TABLE; Schema: public; Owner: telescope
 --
 
 CREATE TABLE public.integrations (
@@ -192,38 +192,38 @@ CREATE TABLE public.integrations (
 );
 
 
-ALTER TABLE public.integrations OWNER TO postgres;
+ALTER TABLE public.integrations OWNER TO telescope;
 
 --
--- Name: capability id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: capability id; Type: DEFAULT; Schema: public; Owner: telescope
 --
 
 ALTER TABLE ONLY public.capability ALTER COLUMN id SET DEFAULT nextval('public.capability_id_seq'::regclass);
 
 
 --
--- Name: domain id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: domain id; Type: DEFAULT; Schema: public; Owner: telescope
 --
 
 ALTER TABLE ONLY public.domain ALTER COLUMN id SET DEFAULT nextval('public.domain_id_seq'::regclass);
 
 
 --
--- Name: flag id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: flag id; Type: DEFAULT; Schema: public; Owner: telescope
 --
 
 ALTER TABLE ONLY public.flag ALTER COLUMN id SET DEFAULT nextval('public.flag_id_seq'::regclass);
 
 
 --
--- Name: integration_methods id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: integration_methods id; Type: DEFAULT; Schema: public; Owner: telescope
 --
 
 ALTER TABLE ONLY public.integration_methods ALTER COLUMN id SET DEFAULT nextval('public.integration_methods_id_seq'::regclass);
 
 
 --
--- Data for Name: capability; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: capability; Type: TABLE DATA; Schema: public; Owner: telescope
 --
 
 COPY public.capability (id, domain_id, flag_id, description, created_at) FROM stdin;
@@ -247,7 +247,7 @@ COPY public.capability (id, domain_id, flag_id, description, created_at) FROM st
 
 
 --
--- Data for Name: domain; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: domain; Type: TABLE DATA; Schema: public; Owner: telescope
 --
 
 COPY public.domain (id, description, created_at) FROM stdin;
@@ -260,7 +260,7 @@ COPY public.domain (id, description, created_at) FROM stdin;
 
 
 --
--- Data for Name: flag; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: flag; Type: TABLE DATA; Schema: public; Owner: telescope
 --
 
 COPY public.flag (id, description, created_at) FROM stdin;
@@ -270,7 +270,7 @@ COPY public.flag (id, description, created_at) FROM stdin;
 
 
 --
--- Data for Name: integration_methods; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: integration_methods; Type: TABLE DATA; Schema: public; Owner: telescope
 --
 
 COPY public.integration_methods (integration_method_name, id) FROM stdin;
@@ -279,42 +279,42 @@ telescopeComplianceRhacs	1
 
 
 --
--- Name: capability_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: capability_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
 SELECT pg_catalog.setval('public.capability_id_seq', 16, true);
 
 
 --
--- Name: domain_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: domain_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
 SELECT pg_catalog.setval('public.domain_id_seq', 5, true);
 
 
 --
--- Name: flag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: flag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
 SELECT pg_catalog.setval('public.flag_id_seq', 2, true);
 
 
 --
--- Name: integration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: integration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
 SELECT pg_catalog.setval('public.integration_id_seq', 10, true);
 
 
 --
--- Name: integration_methods_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: integration_methods_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
 SELECT pg_catalog.setval('public.integration_methods_id_seq', 3, true);
 
 
 --
--- Name: capability capability_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: capability capability_pkey; Type: CONSTRAINT; Schema: public; Owner: telescope
 --
 
 ALTER TABLE ONLY public.capability
@@ -322,7 +322,7 @@ ALTER TABLE ONLY public.capability
 
 
 --
--- Name: domain domain_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: domain domain_pkey; Type: CONSTRAINT; Schema: public; Owner: telescope
 --
 
 ALTER TABLE ONLY public.domain
@@ -330,7 +330,7 @@ ALTER TABLE ONLY public.domain
 
 
 --
--- Name: flag flag_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: flag flag_pkey; Type: CONSTRAINT; Schema: public; Owner: telescope
 --
 
 ALTER TABLE ONLY public.flag
@@ -338,7 +338,7 @@ ALTER TABLE ONLY public.flag
 
 
 --
--- Name: integrations integrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: integrations integrations_pkey; Type: CONSTRAINT; Schema: public; Owner: telescope
 --
 
 ALTER TABLE ONLY public.integrations
@@ -346,7 +346,7 @@ ALTER TABLE ONLY public.integrations
 
 
 --
--- Name: TABLE integration_methods; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE integration_methods; Type: ACL; Schema: public; Owner: telescope
 --
 
 GRANT ALL ON TABLE public.integration_methods TO telescope;
