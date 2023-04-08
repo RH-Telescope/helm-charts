@@ -1,0 +1,64 @@
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: {{ include "telescope-integration-scripts.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "telescope-integration-scripts.fullname" . }}
+    chart: {{ template "telescope-integration-scripts.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  schedule: "{{ .Values.schedule }}"
+  concurrencyPolicy: Allow
+  suspend: false
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          {{- if .Values.pullSecret.enabled }}
+          imagePullSecrets:
+            - name: {{ .Values.pullSecret.secretName }}
+          {{- end}}
+          containers:
+            - name: {{ include "telescope-integration-scripts.fullname" . }}
+              image: "{{ required "Image is required" .Values.image }}"
+              env:
+              - name: PG_DB
+                value: 'jdbc:postgresql://{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.database }}'
+              - name: PG_USER
+                valueFrom:
+                  secretKeyRef:
+                    key: databaseUser
+                    name: {{ .Values.postgresql.secretName }}
+              - name: PG_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    key: databasePassword
+                    name: {{ .Values.postgresql.secretName }}
+              {{- with .Values.resources }}
+              resources:
+                {{ toYaml . | indent 16 }}
+              {{- end }}
+              terminationMessagePolicy: File
+              imagePullPolicy: Always
+          restartPolicy: Never
+          securityContext: {}
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
+            {{ toYaml . | indent 12 }}
+          {{- end }}
+          {{- with .Values.affinity }}
+          affinity:
+            {{ toYaml . | indent 12 }}
+          {{- end }}
+          {{- with .Values.tolerations }}
+          tolerations:
+            {{ toYaml . | indent 12 }}
+          {{- end }}
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1

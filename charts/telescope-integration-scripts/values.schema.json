@@ -1,0 +1,136 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "type": "object",
+    "properties": {
+        "replicaCount": {
+            "type": "integer",
+            "examples": [
+                1
+            ]
+        },
+        "image": {
+            "type": "string",
+            "examples": [
+                ""
+            ]
+        },
+        "imagePullPolicy": {
+            "type": "string",
+            "examples": [
+                "Always"
+            ]
+        },
+        "schedule": {
+            "type": "string",
+            "examples": [
+                "0 * * * *"
+            ]
+        },
+        "resources": {
+            "type": "null",
+            "examples": [
+                null
+            ]
+        },
+        "nodeSelector": {
+            "type": "object",
+            "properties": {},
+            "examples": [{}]
+        },
+        "tolerations": {
+            "type": "array",
+            "examples": [
+                []
+            ]
+        },
+        "affinity": {
+            "type": "object",
+            "properties": {},
+            "examples": [{}]
+        },
+        "pullSecret": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "examples": [
+                        false
+                    ]
+                },
+                "secretName": {
+                    "type": "string",
+                    "examples": [
+                        "pull-secret"
+                    ]
+                },
+                "secretKey": {
+                    "type": "string",
+                    "examples": [
+                        ".dockerconfigjson"
+                    ]
+                }
+            },
+            "examples": [{
+                "enabled": false,
+                "secretName": "pull-secret",
+                "secretKey": ".dockerconfigjson"
+            }]
+        },
+        "postgresql": {
+            "type": "object",
+            "properties": {
+                "secretName": {
+                    "type": "string",
+                    "examples": [
+                        "postgresql"
+                    ]
+                },
+                "host": {
+                    "type": "string",
+                    "examples": [
+                        "postgresql"
+                    ]
+                },
+                "port": {
+                    "type": "integer",
+                    "examples": [
+                        5432
+                    ]
+                },
+                "database": {
+                    "type": "string",
+                    "examples": [
+                        "telescope"
+                    ]
+                }
+            },
+            "examples": [{
+                "secretName": "postgresql",
+                "host": "postgresql",
+                "port": 5432,
+                "database": "telescope"
+            }]
+        }
+    },
+    "examples": [{
+        "replicaCount": 1,
+        "image": "",
+        "imagePullPolicy": "Always",
+        "schedule": "0 * * * *",
+        "resources": null,
+        "nodeSelector": {},
+        "tolerations": [],
+        "affinity": {},
+        "pullSecret": {
+            "enabled": false,
+            "secretName": "pull-secret",
+            "secretKey": ".dockerconfigjson"
+        },
+        "postgresql": {
+            "secretName": "postgresql",
+            "host": "postgresql",
+            "port": 5432,
+            "database": "telescope"
+        }
+    }]
+}
