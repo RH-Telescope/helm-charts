@@ -169,6 +169,17 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-frontend-0.1.1/telescope-frontend-0.1.1.tgz
     version: 0.1.1
+  telescope-integration-scripts:
+  - apiVersion: v2
+    created: "2023-04-11T05:50:39.956309594Z"
+    description: Generic charts to support the tooling to integrate external tooling
+      into Telescope.
+    digest: e4f0ee93de9acea3fdfa8338a6c51701ae93d0b23a2170bd27c4692da05abab6
+    name: telescope-integration-scripts
+    type: application
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-integration-scripts-0.1.0/telescope-integration-scripts-0.1.0.tgz
+    version: 0.1.0
   telescope-toggle:
   - apiVersion: v2
     created: "2023-03-21T22:32:47.471619444Z"
@@ -179,4 +190,4 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-toggle-0.1.0/telescope-toggle-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-06T12:21:02.573786135Z"
+generated: "2023-04-11T05:50:39.956343094Z"
