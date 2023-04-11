@@ -227,7 +227,7 @@ ALTER TABLE ONLY public.integration_methods ALTER COLUMN id SET DEFAULT nextval(
 --
 
 COPY public.capability (id, domain_id, flag_id, description, created_at) FROM stdin;
-2	2	8	Classification	2023-01-05 12:05:28.270549
+2	2	2	Classification	2023-01-05 12:05:28.270549
 8	1	2	Platform Hardening	2023-01-05 12:06:29.110498
 1	1	2	Secure Images	2023-01-05 12:05:28.265165
 9	1	2	Container Protection	2023-01-05 12:06:38.023359
