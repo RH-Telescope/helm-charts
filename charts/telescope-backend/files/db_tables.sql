@@ -401,6 +401,11 @@ ALTER TABLE public.capability_history_id_seq OWNER TO telescope;
 
 ALTER SEQUENCE public.capability_history_id_seq OWNED BY public.capability_history.id;
 
+---
+-- Add ID sequence to capability_history.id column
+--- 
+
+ALTER TABLE ONLY public.capability_history ALTER COLUMN id SET DEFAULT nextval('public.capability_history_id_seq'::regclass);
 
 --
 -- Name: capability capability_trigger_copy; Type: TRIGGER; Schema: public; Owner: telescope
