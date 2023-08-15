@@ -62,6 +62,14 @@ entries:
     version: 0.1.0
   telescope-argocd:
   - apiVersion: v2
+    created: "2023-08-15T07:33:30.631648894Z"
+    description: Chart to deploy Argo CD Applications Supporting Telescope
+    digest: a2516b19452cf1d2c2ec2f591d0268ced97585696384676ffb8227a7129448a6
+    name: telescope-argocd
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-argocd-0.3.0/telescope-argocd-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     created: "2023-01-10T14:01:01.760291414Z"
     description: Chart to deploy Argo CD Applications Supporting Telescope
     digest: 7371a79fb9fa379d81349526f94881e71293dd65534e620d54ab24ab28e39108
@@ -208,4 +216,4 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-toggle-0.1.0/telescope-toggle-0.1.0.tgz
     version: 0.1.0
-generated: "2023-08-15T00:20:44.691954896Z"
+generated: "2023-08-15T07:33:30.631713693Z"
