@@ -351,6 +351,63 @@ ALTER TABLE ONLY public.integrations
 
 GRANT ALL ON TABLE public.integration_methods TO telescope;
 
+--
+-- Name: capability_history(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.capability_history() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    INSERT INTO
+        capability_history(capability_id,flag)
+        VALUES(new.id,new.flag_id);
+           RETURN new;
+END;
+$$;
+
+
+ALTER FUNCTION public.capability_history() OWNER TO postgres;
+
+
+CREATE TABLE public.capability_history (
+    id integer NOT NULL,
+    capability_id integer,
+    flag integer,
+    updated timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.capability_history OWNER TO telescope;
+
+--
+-- Name: capability_history_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
+--
+
+CREATE SEQUENCE public.capability_history_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.capability_history_id_seq OWNER TO telescope;
+
+--
+-- Name: capability_history_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: telescope
+--
+
+ALTER SEQUENCE public.capability_history_id_seq OWNED BY public.capability_history.id;
+
+
+--
+-- Name: capability capability_trigger_copy; Type: TRIGGER; Schema: public; Owner: telescope
+--
+
+CREATE TRIGGER capability_trigger_copy AFTER UPDATE ON public.capability FOR EACH ROW EXECUTE FUNCTION public.capability_history();
+
 
 --
 -- PostgreSQL database dump complete
