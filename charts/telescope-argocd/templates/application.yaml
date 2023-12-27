@@ -23,6 +23,10 @@ spec:
       values: |
         {{- toYaml $chart.values | nindent 8 }}
     {{- end }}
+    {{- if $chart.valueFiles }}
+      valueFiles: |
+        {{- toYaml $chart.valueFiles | nindent 8 }}
+    {{- end }}
   syncPolicy:
     {{- toYaml (default $.Values.defaultSyncPolicy $chart.syncPolicy) | nindent 4 }}
 {{- end }}

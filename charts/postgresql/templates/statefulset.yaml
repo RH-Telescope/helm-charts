@@ -20,17 +20,17 @@ spec:
       containers:
         - name: postgresql
           env:
-            - name: POSTGRESQL_PASSWORD
+            - name: {{ .Values.postgresql.envVarKeys.password }}
               valueFrom:
                 secretKeyRef:
                   name: {{ include "postgresql.fullname" . }}
                   key: databasePassword
-            - name: POSTGRESQL_USER
+            - name: {{ .Values.postgresql.envVarKeys.user }}
               valueFrom:
                 secretKeyRef:
                   name: {{ include "postgresql.fullname" . }}
                   key: databaseUser
-            - name: POSTGRESQL_DATABASE
+            - name: {{ .Values.postgresql.envVarKeys.database }}
               valueFrom:
                 secretKeyRef:
                   name: {{ include "postgresql.fullname" . }}
@@ -41,7 +41,7 @@ spec:
               protocol: TCP
 {{- if .Values.postgresql.storage.enabled }}
           volumeMounts:
-            - mountPath: /var/lib/pgsql/data
+            - mountPath: {{ .Values.postgresql.storage.mountPath }}
               name: postgresdb
 {{- end }}
           terminationMessagePolicy: File
@@ -56,7 +56,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - exec pg_isready -U "$POSTGRESQL_USER" -d "dbname=$POSTGRESQL_DATABASE" -h 127.0.0.1 -p {{ .Values.postgresql.port }}
+                - exec pg_isready -U "${{ .Values.postgresql.envVarKeys.user }}" -d "dbname=${{ .Values.postgresql.envVarKeys.database }}" -h 127.0.0.1 -p {{ .Values.postgresql.port }}
           readinessProbe:
             failureThreshold: 6
             initialDelaySeconds: 5
@@ -68,7 +68,7 @@ spec:
                 - /bin/sh
                 - -c
                 - -e
-                - exec pg_isready -U "$POSTGRESQL_USER" -d "dbname=$POSTGRESQL_DATABASE" -h 127.0.0.1 -p {{ .Values.postgresql.port }}
+                - exec pg_isready -U "${{ .Values.postgresql.envVarKeys.user }}" -d "dbname=${{ .Values.postgresql.envVarKeys.database }}" -h 127.0.0.1 -p {{ .Values.postgresql.port }}
       serviceAccount: {{ include "postgresql.serviceAccountName" . }}
       volumes:
       - name: postgresdb

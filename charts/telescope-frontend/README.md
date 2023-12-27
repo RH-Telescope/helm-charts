@@ -1,35 +1,34 @@
-# dashboard-react-app
+# telescope-frontend
 
-The dashboard-react-app for the [Telescope Project](https://rh-telescope.github.io/)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-## Quick Installation
+A helm chart for Kubernetes to deploy the 'telescope-frontend' application.
 
-```shell
-helm dependency update .
-helm install [RELEASE_NAME] .
-```
+**Homepage:** <https://project-telescope.com>
 
-This command deploys the default configuration for the dashboard-react-app chart. The [Parameters] section describes the various ways in which the chart can be configured.
+## Source Code
 
-## Uninstallation
-
-```shell
-helm uninstall [RELEASE_NAME]
-```
-
-The previous command removes the previously installed chart.
-
-## Parameters
-
-The following table lists the configurable parameters of the dashboard-react-app chart and their default values.
+* <https://github.com/RH-Telescope/helm-charts>
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
+| backendUrl | string | `""` |  |
+| env | list | `[]` |  |
 | image | string | `"quay.io/telescope/dashboard-react-app:latest"` |  |
 | imagePullPolicy | string | `"Always"` |  |
+| ingress.annotations | object | `{}` |  |
+| ingress.className | string | `""` |  |
+| ingress.enabled | bool | `true` |  |
+| ingress.host | string | `""` |  |
+| ingress.labels | object | `{}` |  |
+| ingress.name | string | `"telescope-frontend"` |  |
+| ingress.path | string | `"/"` |  |
+| ingress.tls.enabled | bool | `false` |  |
+| ingress.tls.secretName | string | `""` |  |
+| nodeBuildDir | string | `"/opt/app-root/src/build"` |  |
 | nodeSelector | object | `{}` |  |
 | probe.livepath | string | `"/"` |  |
 | probe.readypath | string | `"/"` |  |
@@ -38,11 +37,6 @@ The following table lists the configurable parameters of the dashboard-react-app
 | pullSecret.secretName | string | `"pull-secret"` |  |
 | replicaCount | int | `1` |  |
 | resources | string | `nil` |  |
-| route.annotations | object | `{}` |  |
-| route.enabled | bool | `true` |  |
-| route.name | string | `"dashboard-react-app"` |  |
-| route.path | string | `"/"` |  |
-| service.name | string | `"dashboard-react-app"` |  |
 | service.port | int | `80` |  |
 | service.targetport | int | `3000` |  |
 | service.type | string | `"ClusterIP"` |  |
