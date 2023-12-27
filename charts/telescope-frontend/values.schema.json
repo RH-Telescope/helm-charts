@@ -81,14 +81,31 @@
                 "livepath": "/"
             }]
         },
-        "route": {
+        "ingress": {
             "type": "object",
             "properties": {
+                "name": {
+                    "type": "string",
+                    "examples": [
+                        "telescope-frontend"
+                    ]
+                },
                 "enabled": {
                     "type": "boolean",
                     "examples": [
                         true
                     ]
+                },
+                "className": {
+                    "type": "string",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "labels": {
+                    "type": "object",
+                    "properties": {},
+                    "examples": [{}]
                 },
                 "annotations": {
                     "type": "object",
@@ -101,18 +118,46 @@
                         "/"
                     ]
                 },
-                "hostname": {
+                "host": {
                     "type": "string",
                     "examples": [
                         ""
                     ]
+                },
+                "tls": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "secretName": {
+                            "type": "string",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "enabled": false,
+                        "secretName": ""
+                    }]
                 }
             },
             "examples": [{
+                "name": "telescope-frontend",
                 "enabled": true,
+                "className": "",
+                "labels": {},
                 "annotations": {},
                 "path": "/",
-                "hostname": ""
+                "host": "",
+                "tls": {
+                    "enabled": false,
+                    "secretName": ""
+                }
             }]
         },
         "resources": {
@@ -310,11 +355,18 @@
             "readypath": "/",
             "livepath": "/"
         },
-        "route": {
+        "ingress": {
+            "name": "telescope-frontend",
             "enabled": true,
+            "className": "",
+            "labels": {},
             "annotations": {},
             "path": "/",
-            "hostname": ""
+            "host": "",
+            "tls": {
+                "enabled": false,
+                "secretName": ""
+            }
         },
         "resources": null,
         "nodeSelector": {},

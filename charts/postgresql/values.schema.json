@@ -31,12 +31,19 @@
                             "examples": [
                                 ""
                             ]
+                        },
+                        "mountPath": {
+                            "type": "string",
+                            "examples": [
+                                "/var/lib/postgresql"
+                            ]
                         }
                     },
                     "examples": [{
                         "enabled": true,
                         "size": "2Gi",
-                        "storageClass": ""
+                        "storageClass": "",
+                        "mountPath": "/var/lib/postgresql"
                     }]
                 },
                 "user": {
@@ -50,6 +57,34 @@
                     "examples": [
                         "telescope"
                     ]
+                },
+                "envVarKeys": {
+                    "type": "object",
+                    "properties": {
+                        "database": {
+                            "type": "string",
+                            "examples": [
+                                "POSTGRES_DB"
+                            ]
+                        },
+                        "user": {
+                            "type": "string",
+                            "examples": [
+                                "POSTGRES_USER"
+                            ]
+                        },
+                        "password": {
+                            "type": "string",
+                            "examples": [
+                                "POSTGRES_PASSWORD"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "database": "POSTGRES_DB",
+                        "user": "POSTGRES_USER",
+                        "password": "POSTGRES_PASSWORD"
+                    }]
                 },
                 "autogenPassword": {
                     "type": "boolean",
@@ -66,13 +101,13 @@
                 "image": {
                     "type": "string",
                     "examples": [
-                        "registry.redhat.io/rhel9/postgresql-13:latest"
+                        "docker.io/postgres:13"
                     ]
                 },
                 "autogenImage": {
                     "type": "string",
                     "examples": [
-                        "registry.redhat.io/openshift4/ose-cli:latest"
+                        "docker.io/bitnami/kubectl:latest"
                     ]
                 },
                 "resources": {
@@ -138,14 +173,20 @@
                 "storage": {
                     "enabled": true,
                     "size": "2Gi",
-                    "storageClass": ""
+                    "storageClass": "",
+                    "mountPath": "/var/lib/postgresql"
                 },
                 "user": "telescope",
                 "database": "telescope",
+                "envVarKeys": {
+                    "database": "POSTGRES_DB",
+                    "user": "POSTGRES_USER",
+                    "password": "POSTGRES_PASSWORD"
+                },
                 "autogenPassword": true,
                 "port": 5432,
-                "image": "registry.redhat.io/rhel9/postgresql-13:latest",
-                "autogenImage": "registry.redhat.io/openshift4/ose-cli:latest",
+                "image": "docker.io/postgres:13",
+                "autogenImage": "docker.io/bitnami/kubectl:latest",
                 "resources": {
                     "limits": {
                         "cpu": "400m",
@@ -190,14 +231,20 @@
             "storage": {
                 "enabled": true,
                 "size": "2Gi",
-                "storageClass": ""
+                "storageClass": "",
+                "mountPath": "/var/lib/postgresql"
             },
             "user": "telescope",
             "database": "telescope",
+            "envVarKeys": {
+                "database": "POSTGRES_DB",
+                "user": "POSTGRES_USER",
+                "password": "POSTGRES_PASSWORD"
+            },
             "autogenPassword": true,
             "port": 5432,
-            "image": "registry.redhat.io/rhel9/postgresql-13:latest",
-            "autogenImage": "registry.redhat.io/openshift4/ose-cli:latest",
+            "image": "docker.io/postgres:13",
+            "autogenImage": "docker.io/bitnami/kubectl:latest",
             "resources": {
                 "limits": {
                     "cpu": "400m",

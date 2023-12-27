@@ -1,0 +1,36 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "telescope-toggle.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  {{- if .Values.ingress.labels }}
+  labels:
+    {{- .Values.ingress.labels | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if .Values.ingress.annotations }}
+  annotations:
+    {{- .Values.ingress.annotations | toYaml | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className | quote }}
+  {{- end }}
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+    - hosts:
+      - {{ required "Toggle ingress host must be provided" .Values.ingress.host }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+  rules:
+    - host: {{ required "Toggle ingress host must be provided" .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "telescope-toggle.fullname" . }}
+                port:
+                  number: {{ .Values.service.port }}
+{{- end }}

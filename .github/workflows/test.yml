@@ -14,19 +14,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: sigstore/cosign-installer@f3c664df7af409cb4873aa5068053ba9d61a57b6 # pin@v2.5.0
+      - uses: sigstore/cosign-installer@9614fae9e5c5eddabb09f90a270fcb487c9f7149 # pin@v3.3.0
 
       - name: Set up Helm
-        uses: azure/setup-helm@b5b231a831f96336bbfeccc1329990f0005c5bb1 # pin@v3.3
+        uses: azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # pin@v3.5
         with:
-          version: v3.9.3
+          version: v3.13.2
 
       - uses: actions/setup-python@b55428b1882923874294fa556849718a1d7f2ca5 # pin@v4
         with:
           python-version: 3.7
 
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@09ed88797198755e5031f25be13da255e7e33aad # pin@v2.3.0
+        uses: helm/chart-testing-action@e6669bcd63d7cb57cb4380c33043eebe5d111992 # pin@v2.6.1
 
       - name: Run chart-testing (lint)
         run: ct lint --config ct.yaml
