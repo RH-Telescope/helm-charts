@@ -78,10 +78,28 @@
                 "x"
             ]
         },
+        "path": {
+            "type": "string",
+            "examples": [
+                "."
+            ]
+        },
+        "sourceType": {
+            "type": "string",
+            "examples": [
+                "helm"
+            ]
+        },
+        "targetRevision": {
+            "type": "string",
+            "examples": [
+                "main"
+            ]
+        },
         "gitOpsNamespace": {
             "type": "string",
             "examples": [
-                "openshift-gitops"
+                "argocd"
             ]
         },
         "defaultSyncPolicy": {
@@ -187,7 +205,10 @@
         "destinationServer": "https://kubernetes.default.svc",
         "repoURL": "https://rh-telescope.github.io/helm-charts",
         "chartVersion": "x",
-        "gitOpsNamespace": "openshift-gitops",
+        "path": ".",
+        "sourceType": "helm",
+        "targetRevision": "main",
+        "gitOpsNamespace": "argocd",
         "defaultSyncPolicy": {
             "automated": {
                 "prune": false,
