@@ -7,12 +7,18 @@ postgresql:
     enabled: true
     size: 2Gi
     storageClass: ""
+    mountPath: /var/lib/postgresql
   ## Paas Required config
   # storageClass: "aws-efs-tier-c3"
   # labels:
   #   paas.redhat.com/appcode: "ASBL-001"
   user: telescope
   database: telescope
+  envVarKeys:
+    database: POSTGRES_DB
+    user: POSTGRES_USER
+    password: POSTGRES_PASSWORD
+
 ## If using external db set the host
 # host: "example.com"
 
@@ -21,8 +27,8 @@ postgresql:
 ## If using external instance supply the password
 # password: "somepassword"
   port: 5432
-  image: registry.redhat.io/rhel9/postgresql-13:latest
-  autogenImage: registry.redhat.io/openshift4/ose-cli:latest
+  image: docker.io/postgres:13
+  autogenImage: docker.io/bitnami/kubectl:latest
   resources:
     limits:
       cpu: 400m

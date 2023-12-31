@@ -15,11 +15,17 @@ probe:
   readypath: /
   livepath: /
 
-route:
+ingress:
+  name: telescope-frontend
   enabled: true
+  className: ""
+  labels: {}
   annotations: {}
   path: /
-  hostname: ""
+  host: ""
+  tls:
+    enabled: false
+    secretName: ""
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious

@@ -1,62 +1,476 @@
 {
-    "replicaCount": 1,
-    "image": "quay.io/telescope/telescope-backend:latest",
-    "imagePullPolicy": "Always",
-    "service": {
-      "name": "telescope-backend",
-      "type": "ClusterIP",
-      "port": 80,
-      "targetport": 8080
-    },
-    "probe": {
-      "readypath": "/domains",
-      "livepath": "/domains"
-    },
-    "route": {
-      "name": "telescope-backend",
-      "enabled": true,
-      "annotations": {},
-      "path": "/",
-      "hostname": ""
-    },
-    "resources": null,
-    "nodeSelector": {},
-    "tolerations": [],
-    "affinity": {},
-    "pullSecret": {
-      "enabled": false,
-      "secretName": "pull-secret",
-      "secretKey": ".dockerconfigjson"
-    },
-    "vaultStorage": "vault-backend",
-    "vaultSecret": "vault-secret",
-    "vaultKey": "token",
-    "vault": {
-      "registry2": {
-        "host": {
-          "key": "secret/registry2",
-          "property": "host"
-        },
-        "user": {
-          "key": "secret/registry2",
-          "property": "user"
-        },
-        "password": {
-          "key": "secret/registry2",
-          "property": "password"
-        }
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+      "replicaCount": {
+          "type": "integer",
+          "examples": [
+              1
+          ]
+      },
+      "image": {
+          "type": "string",
+          "examples": [
+              "quay.io/telescope/telescope-backend:latest"
+          ]
+      },
+      "imagePullPolicy": {
+          "type": "string",
+          "examples": [
+              "Always"
+          ]
+      },
+      "service": {
+          "type": "object",
+          "properties": {
+              "name": {
+                  "type": "string",
+                  "examples": [
+                      "telescope-backend"
+                  ]
+              },
+              "type": {
+                  "type": "string",
+                  "examples": [
+                      "ClusterIP"
+                  ]
+              },
+              "port": {
+                  "type": "integer",
+                  "examples": [
+                      80
+                  ]
+              },
+              "targetport": {
+                  "type": "integer",
+                  "examples": [
+                      8080
+                  ]
+              }
+          },
+          "examples": [{
+              "name": "telescope-backend",
+              "type": "ClusterIP",
+              "port": 80,
+              "targetport": 8080
+          }]
+      },
+      "probe": {
+          "type": "object",
+          "properties": {
+              "readypath": {
+                  "type": "string",
+                  "examples": [
+                      "/domains"
+                  ]
+              },
+              "livepath": {
+                  "type": "string",
+                  "examples": [
+                      "/domains"
+                  ]
+              }
+          },
+          "examples": [{
+              "readypath": "/domains",
+              "livepath": "/domains"
+          }]
+      },
+      "ingress": {
+          "type": "object",
+          "properties": {
+              "name": {
+                  "type": "string",
+                  "examples": [
+                      "telescope-backend"
+                  ]
+              },
+              "enabled": {
+                  "type": "boolean",
+                  "examples": [
+                      true
+                  ]
+              },
+              "className": {
+                  "type": "string",
+                  "examples": [
+                      ""
+                  ]
+              },
+              "labels": {
+                  "type": "object",
+                  "properties": {},
+                  "examples": [{}]
+              },
+              "annotations": {
+                  "type": "object",
+                  "properties": {},
+                  "examples": [{}]
+              },
+              "path": {
+                  "type": "string",
+                  "examples": [
+                      "/"
+                  ]
+              },
+              "host": {
+                  "type": "string",
+                  "examples": [
+                      ""
+                  ]
+              },
+              "tls": {
+                  "type": "object",
+                  "properties": {
+                      "enabled": {
+                          "type": "boolean",
+                          "examples": [
+                              false
+                          ]
+                      },
+                      "secretName": {
+                          "type": "string",
+                          "examples": [
+                              ""
+                          ]
+                      }
+                  },
+                  "examples": [{
+                      "enabled": false,
+                      "secretName": ""
+                  }]
+              }
+          },
+          "examples": [{
+              "name": "telescope-backend",
+              "enabled": true,
+              "className": "",
+              "labels": {},
+              "annotations": {},
+              "path": "/",
+              "host": "",
+              "tls": {
+                  "enabled": false,
+                  "secretName": ""
+              }
+          }]
+      },
+      "resources": {
+          "type": "null",
+          "examples": [
+              null
+          ]
+      },
+      "nodeSelector": {
+          "type": "object",
+          "properties": {},
+          "examples": [{}]
+      },
+      "tolerations": {
+          "type": "array",
+          "items": {},
+          "examples": [
+              []
+          ]
+      },
+      "affinity": {
+          "type": "object",
+          "properties": {},
+          "examples": [{}]
+      },
+      "pullSecret": {
+          "type": "object",
+          "properties": {
+              "enabled": {
+                  "type": "boolean",
+                  "examples": [
+                      false
+                  ]
+              },
+              "secretName": {
+                  "type": "string",
+                  "examples": [
+                      "pull-secret"
+                  ]
+              },
+              "secretKey": {
+                  "type": "string",
+                  "examples": [
+                      ".dockerconfigjson"
+                  ]
+              }
+          },
+          "examples": [{
+              "enabled": false,
+              "secretName": "pull-secret",
+              "secretKey": ".dockerconfigjson"
+          }]
+      },
+      "vaultStorage": {
+          "type": "string",
+          "examples": [
+              "vault-backend"
+          ]
+      },
+      "vaultSecret": {
+          "type": "string",
+          "examples": [
+              "vault-secret"
+          ]
+      },
+      "vaultKey": {
+          "type": "string",
+          "examples": [
+              "token"
+          ]
+      },
+      "vault": {
+          "type": "object",
+          "properties": {
+              "registry2": {
+                  "type": "object",
+                  "properties": {
+                      "host": {
+                          "type": "object",
+                          "properties": {
+                              "key": {
+                                  "type": "string",
+                                  "examples": [
+                                      "secret/registry2"
+                                  ]
+                              },
+                              "property": {
+                                  "type": "string",
+                                  "examples": [
+                                      "host"
+                                  ]
+                              }
+                          },
+                          "examples": [{
+                              "key": "secret/registry2",
+                              "property": "host"
+                          }]
+                      },
+                      "user": {
+                          "type": "object",
+                          "properties": {
+                              "key": {
+                                  "type": "string",
+                                  "examples": [
+                                      "secret/registry2"
+                                  ]
+                              },
+                              "property": {
+                                  "type": "string",
+                                  "examples": [
+                                      "user"
+                                  ]
+                              }
+                          },
+                          "examples": [{
+                              "key": "secret/registry2",
+                              "property": "user"
+                          }]
+                      },
+                      "password": {
+                          "type": "object",
+                          "properties": {
+                              "key": {
+                                  "type": "string",
+                                  "examples": [
+                                      "secret/registry2"
+                                  ]
+                              },
+                              "property": {
+                                  "type": "string",
+                                  "examples": [
+                                      "password"
+                                  ]
+                              }
+                          },
+                          "examples": [{
+                              "key": "secret/registry2",
+                              "property": "password"
+                          }]
+                      }
+                  },
+                  "examples": [{
+                      "host": {
+                          "key": "secret/registry2",
+                          "property": "host"
+                      },
+                      "user": {
+                          "key": "secret/registry2",
+                          "property": "user"
+                      },
+                      "password": {
+                          "key": "secret/registry2",
+                          "property": "password"
+                      }
+                  }]
+              }
+          },
+          "examples": [{
+              "registry2": {
+                  "host": {
+                      "key": "secret/registry2",
+                      "property": "host"
+                  },
+                  "user": {
+                      "key": "secret/registry2",
+                      "property": "user"
+                  },
+                  "password": {
+                      "key": "secret/registry2",
+                      "property": "password"
+                  }
+              }
+          }]
+      },
+      "postgresql": {
+          "type": "object",
+          "properties": {
+              "external": {
+                  "type": "boolean",
+                  "examples": [
+                      false
+                  ]
+              },
+              "init": {
+                  "type": "boolean",
+                  "examples": [
+                      true
+                  ]
+              },
+              "secretName": {
+                  "type": "string",
+                  "examples": [
+                      "postgresql"
+                  ]
+              },
+              "host": {
+                  "type": "string",
+                  "examples": [
+                      "postgresql"
+                  ]
+              },
+              "port": {
+                  "type": "integer",
+                  "examples": [
+                      5432
+                  ]
+              },
+              "username": {
+                  "type": "string",
+                  "examples": [
+                      ""
+                  ]
+              },
+              "password": {
+                  "type": "string",
+                  "examples": [
+                      ""
+                  ]
+              },
+              "adminPassword": {
+                  "type": "string",
+                  "examples": [
+                      ""
+                  ]
+              },
+              "database": {
+                  "type": "string",
+                  "examples": [
+                      "telescope"
+                  ]
+              },
+              "image": {
+                  "type": "string",
+                  "examples": [
+                      "docker.io/postgres:13"
+                  ]
+              }
+          },
+          "examples": [{
+              "external": false,
+              "init": true,
+              "secretName": "postgresql",
+              "host": "postgresql",
+              "port": 5432,
+              "username": "",
+              "password": "",
+              "adminPassword": "",
+              "database": "telescope",
+              "image": "docker.io/postgres:13"
+          }]
       }
-    },
-    "postgresql": {
-      "external": false,
-      "init": true,
-      "secretName": "postgresql",
-      "host": "postgresql",
-      "port": 5432,
-      "username": "",
-      "password": "",
-      "adminPassword": "",
-      "database": "telescope",
-      "image": "registry.redhat.io/rhel9/postgresql-13:latest"
-    }
-  }
+  },
+  "examples": [{
+      "replicaCount": 1,
+      "image": "quay.io/telescope/telescope-backend:latest",
+      "imagePullPolicy": "Always",
+      "service": {
+          "name": "telescope-backend",
+          "type": "ClusterIP",
+          "port": 80,
+          "targetport": 8080
+      },
+      "probe": {
+          "readypath": "/domains",
+          "livepath": "/domains"
+      },
+      "ingress": {
+          "name": "telescope-backend",
+          "enabled": true,
+          "className": "",
+          "labels": {},
+          "annotations": {},
+          "path": "/",
+          "host": "",
+          "tls": {
+              "enabled": false,
+              "secretName": ""
+          }
+      },
+      "resources": null,
+      "nodeSelector": {},
+      "tolerations": [],
+      "affinity": {},
+      "pullSecret": {
+          "enabled": false,
+          "secretName": "pull-secret",
+          "secretKey": ".dockerconfigjson"
+      },
+      "vaultStorage": "vault-backend",
+      "vaultSecret": "vault-secret",
+      "vaultKey": "token",
+      "vault": {
+          "registry2": {
+              "host": {
+                  "key": "secret/registry2",
+                  "property": "host"
+              },
+              "user": {
+                  "key": "secret/registry2",
+                  "property": "user"
+              },
+              "password": {
+                  "key": "secret/registry2",
+                  "property": "password"
+              }
+          }
+      },
+      "postgresql": {
+          "external": false,
+          "init": true,
+          "secretName": "postgresql",
+          "host": "postgresql",
+          "port": 5432,
+          "username": "",
+          "password": "",
+          "adminPassword": "",
+          "database": "telescope",
+          "image": "docker.io/postgres:13"
+      }
+  }]
+}

@@ -1,0 +1,7 @@
+---
+
+ingress:
+  annotations:
+    route.openshift.io/termination: "edge"
+postgresql:
+  image: registry.redhat.io/rhel9/postgresql-13:latest

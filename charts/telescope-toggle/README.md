@@ -1,27 +1,8 @@
 # telescope-toggle
 
-The telescope-toggle for the [Telescope Project](https://rh-telescope.github.io/)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-## Quick Installation
-
-```shell
-helm dependency update .
-helm install [RELEASE_NAME] .
-```
-
-This command deploys the default configuration for the telescope-toggle chart. The [Parameters] section describes the various ways in which the chart can be configured.
-
-## Uninstallation
-
-```shell
-helm uninstall [RELEASE_NAME]
-```
-
-The previous command removes the previously installed chart.
-
-## Parameters
-
-The following table lists the configurable parameters of the telescope-toggle chart and their default values.
+A helm chart for Kubernetes to deploy the 'telescope-toggle' application.
 
 ## Values
 
@@ -30,6 +11,15 @@ The following table lists the configurable parameters of the telescope-toggle ch
 | affinity | object | `{}` |  |
 | image | string | `"quay.io/telescope/telescope-toggle:latest"` |  |
 | imagePullPolicy | string | `"Always"` |  |
+| ingress.annotations | object | `{}` |  |
+| ingress.className | string | `""` |  |
+| ingress.enabled | bool | `true` |  |
+| ingress.host | string | `""` |  |
+| ingress.labels | object | `{}` |  |
+| ingress.name | string | `"telescope-toggle"` |  |
+| ingress.path | string | `"/"` |  |
+| ingress.tls.enabled | bool | `false` |  |
+| ingress.tls.secretName | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | postgresql.adminPassword | string | `""` |  |
 | postgresql.database | string | `"telescope"` |  |
@@ -45,11 +35,6 @@ The following table lists the configurable parameters of the telescope-toggle ch
 | pullSecret.secretKey | string | `".dockerconfigjson"` |  |
 | pullSecret.secretName | string | `"pull-secret"` |  |
 | resources | string | `nil` |  |
-| route.annotations | object | `{}` |  |
-| route.enabled | bool | `true` |  |
-| route.hostname | string | `""` |  |
-| route.name | string | `"telescope-toggle"` |  |
-| route.path | string | `"/"` |  |
 | service.name | string | `"telescope-toggle"` |  |
 | service.port | int | `80` |  |
 | service.targetport | int | `8080` |  |

@@ -13,12 +13,17 @@ probe:
   readypath: /domains
   livepath: /domains
 
-route:
+ingress:
   name: telescope-backend
   enabled: true
+  className: ""
+  labels: {}
   annotations: {}
   path: /
-  hostname: ""
+  host: ""
+  tls:
+    enabled: false
+    secretName: ""
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -71,4 +76,4 @@ postgresql:
   password: ""
   adminPassword: ""
   database: "telescope"
-  image: registry.redhat.io/rhel9/postgresql-13:latest
+  image: docker.io/postgres:13

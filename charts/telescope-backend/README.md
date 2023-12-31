@@ -1,27 +1,14 @@
 # telescope-backend
 
-The backend for the [Telescope Project](https://rh-telescope.github.io/)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-## Quick Installation
+A helm chart for Kubernetes to deploy the 'telescope-backend' application.
 
-```shell
-helm dependency update .
-helm install [RELEASE_NAME] .
-```
+**Homepage:** <https://project-telescope.com>
 
-This command deploys the default configuration for the telescope-backend chart. The [Parameters] section describes the various ways in which the chart can be configured.
+## Source Code
 
-## Uninstallation
-
-```shell
-helm uninstall [RELEASE_NAME]
-```
-
-The previous command removes the previously installed chart.
-
-## Parameters
-
-The following table lists the configurable parameters of the telescope-backend chart and their default values.
+* <https://github.com/RH-Telescope/helm-charts>
 
 ## Values
 
@@ -30,7 +17,26 @@ The following table lists the configurable parameters of the telescope-backend c
 | affinity | object | `{}` |  |
 | image | string | `"quay.io/telescope/telescope-backend:latest"` |  |
 | imagePullPolicy | string | `"Always"` |  |
+| ingress.annotations | object | `{}` |  |
+| ingress.className | string | `""` |  |
+| ingress.enabled | bool | `true` |  |
+| ingress.host | string | `""` |  |
+| ingress.labels | object | `{}` |  |
+| ingress.name | string | `"telescope-backend"` |  |
+| ingress.path | string | `"/"` |  |
+| ingress.tls.enabled | bool | `false` |  |
+| ingress.tls.secretName | string | `""` |  |
 | nodeSelector | object | `{}` |  |
+| postgresql.adminPassword | string | `""` |  |
+| postgresql.database | string | `"telescope"` |  |
+| postgresql.external | bool | `false` |  |
+| postgresql.host | string | `"postgresql"` |  |
+| postgresql.image | string | `"docker.io/postgres:13"` |  |
+| postgresql.init | bool | `true` |  |
+| postgresql.password | string | `""` |  |
+| postgresql.port | int | `5432` |  |
+| postgresql.secretName | string | `"postgresql"` |  |
+| postgresql.username | string | `""` |  |
 | probe.livepath | string | `"/domains"` |  |
 | probe.readypath | string | `"/domains"` |  |
 | pullSecret.enabled | bool | `false` |  |
@@ -38,10 +44,6 @@ The following table lists the configurable parameters of the telescope-backend c
 | pullSecret.secretName | string | `"pull-secret"` |  |
 | replicaCount | int | `1` |  |
 | resources | string | `nil` |  |
-| route.annotations | object | `{}` |  |
-| route.enabled | bool | `true` |  |
-| route.name | string | `"telescope-backend"` |  |
-| route.path | string | `"/"` |  |
 | service.name | string | `"telescope-backend"` |  |
 | service.port | int | `80` |  |
 | service.targetport | int | `8080` |  |

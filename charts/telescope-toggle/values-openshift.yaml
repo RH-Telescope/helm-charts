@@ -1,0 +1,5 @@
+---
+
+ingress:
+  annotations:
+    route.openshift.io/termination: "edge"

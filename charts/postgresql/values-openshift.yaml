@@ -1,0 +1,11 @@
+---
+
+postgresql:
+  storage:
+    mountPath: /var/lib/pgsql/data
+  envVarKeys:
+    database: POSTGRESQL_DATABASE
+    user: POSTGRESQL_USER
+    password: POSTGRESQL_PASSWORD
+  image: registry.redhat.io/rhel9/postgresql-13:latest
+  autogenImage: registry.redhat.io/openshift4/ose-cli:latest
