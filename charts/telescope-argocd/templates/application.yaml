@@ -14,9 +14,14 @@ spec:
     server: {{ default $.Values.destinationServer $chart.destinationServer }}
   project: {{ default "default" $chart.project }}
   source:
+    {{- if eq (default $.Values.sourceType $chart.sourceType) "git" }}
+    path: {{ default $.Values.path $chart.path }}
+    targetRevision: {{ default $.Values.targetRevision $chart.targetRevision }}
+    {{- else }}
     chart: {{ default $chartName (default $chart.name $chart.repoChart) }}
-    repoURL: {{ default $.Values.repoURL $chart.repoURL }}
     targetRevision: {{ default $.Values.chartVersion $chart.chartVersion }}
+    {{- end }}
+    repoURL: {{ default $.Values.repoURL $chart.repoURL }}
     helm:
       releaseName: {{ default (default $chartName (default $chart.name $chart.repoChart)) $chart.releaseName }}
     {{- if $chart.values }}

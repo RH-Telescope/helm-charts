@@ -18,7 +18,12 @@ charts:
 destinationServer: https://kubernetes.default.svc
 repoURL: https://rh-telescope.github.io/helm-charts
 chartVersion: x
-gitOpsNamespace: openshift-gitops
+path: "."
+
+# helm or git
+sourceType: helm
+targetRevision: main
+gitOpsNamespace: argocd
 
 defaultSyncPolicy:
   automated:
