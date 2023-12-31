@@ -26,6 +26,9 @@ Chart to deploy Argo CD Applications Supporting Telescope
 | defaultSyncPolicy.retry.limit | int | `5` |  |
 | destinationServer | string | `"https://kubernetes.default.svc"` |  |
 | gitOpsNamespace | string | `"openshift-gitops"` |  |
+| path | string | `"."` |  |
 | repoURL | string | `"https://rh-telescope.github.io/helm-charts"` |  |
+| sourceType | string | `"helm"` |  |
+| targetRevision | string | `"main"` |  |
 
 ----------------------------------------------
