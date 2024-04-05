@@ -87,6 +87,15 @@ entries:
     version: 0.1.0
   telescope-backend:
   - apiVersion: v2
+    created: "2024-04-05T14:55:43.656592852Z"
+    description: A helm chart for Kubernetes to deploy the 'telescope-backend' application.
+    digest: 161e46a5a40b0729cdb948dbf05ff9de9614409d5358fec73e144f6d7be3ddcf
+    name: telescope-backend
+    type: application
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-backend-0.3.9/telescope-backend-0.3.9.tgz
+    version: 0.3.9
+  - apiVersion: v2
     created: "2023-08-17T12:02:20.117834281Z"
     description: A helm chart for Kubernetes to deploy the 'telescope-backend' application.
     digest: 5147147e002ad26d0a42899be96676eb953a1eebd5b7995e6d70ab858c8a9031
@@ -225,4 +234,4 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-toggle-0.1.0/telescope-toggle-0.1.0.tgz
     version: 0.1.0
-generated: "2023-08-17T12:02:20.117906782Z"
+generated: "2024-04-05T14:55:43.656697938Z"
