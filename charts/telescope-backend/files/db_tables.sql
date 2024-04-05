@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.3
--- Dumped by pg_dump version 14.3
+-- Dumped from database version 15.4
+-- Dumped by pg_dump version 15.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -15,6 +15,24 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: capability_history(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.capability_history() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    INSERT INTO
+        capability_history(capability_id,flag)
+        VALUES(new.id,new.flag_id);
+           RETURN new;
+END;
+$$;
+
+
+ALTER FUNCTION public.capability_history() OWNER TO postgres;
 
 SET default_tablespace = '';
 
@@ -34,6 +52,42 @@ CREATE TABLE public.capability (
 
 
 ALTER TABLE public.capability OWNER TO telescope;
+
+--
+-- Name: capability_history; Type: TABLE; Schema: public; Owner: telescope
+--
+
+CREATE TABLE public.capability_history (
+    id integer NOT NULL,
+    capability_id integer,
+    flag integer,
+    updated timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.capability_history OWNER TO telescope;
+
+--
+-- Name: capability_history_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
+--
+
+CREATE SEQUENCE public.capability_history_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.capability_history_id_seq OWNER TO telescope;
+
+--
+-- Name: capability_history_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: telescope
+--
+
+ALTER SEQUENCE public.capability_history_id_seq OWNED BY public.capability_history.id;
+
 
 --
 -- Name: capability_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
@@ -188,17 +242,54 @@ CREATE TABLE public.integrations (
     success_criteria character varying(100),
     last_update timestamp with time zone,
     integration_name character varying(100),
-    integration_method_id bigint
+    integration_method_id bigint,
+    hash character(5)
 );
 
 
 ALTER TABLE public.integrations OWNER TO telescope;
 
 --
+-- Name: profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.profiles_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.profiles_id_seq OWNER TO postgres;
+
+--
+-- Name: profiles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.profiles (
+    id integer DEFAULT nextval('public.profiles_id_seq'::regclass) NOT NULL,
+    name character varying(128),
+    description character varying(128),
+    domains integer[]
+);
+
+
+ALTER TABLE public.profiles OWNER TO postgres;
+
+--
 -- Name: capability id; Type: DEFAULT; Schema: public; Owner: telescope
 --
 
 ALTER TABLE ONLY public.capability ALTER COLUMN id SET DEFAULT nextval('public.capability_id_seq'::regclass);
+
+
+--
+-- Name: capability_history id; Type: DEFAULT; Schema: public; Owner: telescope
+--
+
+ALTER TABLE ONLY public.capability_history ALTER COLUMN id SET DEFAULT nextval('public.capability_history_id_seq'::regclass);
 
 
 --
@@ -226,70 +317,118 @@ ALTER TABLE ONLY public.integration_methods ALTER COLUMN id SET DEFAULT nextval(
 -- Data for Name: capability; Type: TABLE DATA; Schema: public; Owner: telescope
 --
 
-COPY public.capability (id, domain_id, flag_id, description, created_at) FROM stdin;
-2	2	2	Classification	2023-01-05 12:05:28.270549
-8	1	2	Platform Hardening	2023-01-05 12:06:29.110498
-1	1	2	Secure Images	2023-01-05 12:05:28.265165
-9	1	2	Container Protection	2023-01-05 12:06:38.023359
-3	2	2	Encryption	2023-01-05 12:05:28.272751
-4	2	2	Loss Prevention	2023-01-05 12:05:28.274548
-10	2	2	Vulnerability Scanning	2023-01-05 12:06:50.545384
-11	3	1	Static Code Analysis	2023-01-05 12:06:50.558534
-12	3	1	Dynamic Code Analysis	2023-01-05 12:06:50.559867
-13	3	2	Vulnerability Assessment	2023-01-05 12:06:50.560706
-7	4	1	Secure Protocols	2023-01-05 12:05:28.280203
-14	4	1	Exposure Protection	2023-01-05 12:06:50.562267
-5	4	2	Authentication	2023-01-05 12:05:28.276929
-6	4	2	Traffic Analysis	2023-01-05 12:05:28.278372
-15	5	2	Access Monitoring	2023-01-05 12:06:50.563393
-16	5	2	Log Centralization	2023-01-05 12:06:50.56422
-\.
-
+INSERT INTO public.capability VALUES (52, 18, 1, 'Automation and Orchestration', '2023-10-06 15:27:06.048685');
+INSERT INTO public.capability VALUES (53, 18, 2, 'Governance', '2023-10-06 15:27:16.894685');
+INSERT INTO public.capability VALUES (54, 18, 2, 'Visibility and Analytics', '2023-10-06 15:27:29.431084');
+INSERT INTO public.capability VALUES (9, 1, 2, 'Container Protection', '2023-01-05 12:06:38.023359');
+INSERT INTO public.capability VALUES (8, 1, 2, 'Platform Hardening', '2023-01-05 12:06:29.110498');
+INSERT INTO public.capability VALUES (43, 14, 2, 'Accessible Applications', '2023-10-06 15:22:05.877366');
+INSERT INTO public.capability VALUES (44, 14, 2, 'Application Access', '2023-10-06 15:22:20.977352');
+INSERT INTO public.capability VALUES (45, 14, 2, 'Application Security Testing', '2023-10-06 15:22:42.86989');
+INSERT INTO public.capability VALUES (1, 1, 2, 'Secure Images', '2023-01-05 12:05:28.265165');
+INSERT INTO public.capability VALUES (2, 2, 2, 'Classification', '2023-01-05 12:05:28.270549');
+INSERT INTO public.capability VALUES (3, 2, 2, 'Encryption at Rest', '2023-01-05 12:05:28.272751');
+INSERT INTO public.capability VALUES (10, 2, 2, 'Vulnerability Scanning', '2023-01-05 12:06:50.545384');
+INSERT INTO public.capability VALUES (60, 3, 2, 'DAST', '2023-10-12 12:46:45.190308');
+INSERT INTO public.capability VALUES (59, 3, 1, 'SAST', '2023-10-12 12:46:39.490502');
+INSERT INTO public.capability VALUES (61, 3, 1, 'Validated SBOM', '2023-10-12 12:46:59.907279');
+INSERT INTO public.capability VALUES (46, 14, 2, 'Application Threat Protections', '2023-10-06 15:23:00.305145');
+INSERT INTO public.capability VALUES (37, 14, 2, 'Device Threat Protection', '2023-10-06 15:19:49.58944');
+INSERT INTO public.capability VALUES (38, 14, 2, 'Policy Enforcement', '2023-10-06 15:20:03.379245');
+INSERT INTO public.capability VALUES (35, 14, 2, 'Resource Access', '2023-10-06 15:19:15.829315');
+INSERT INTO public.capability VALUES (36, 14, 2, 'Supply Chain Risk Management', '2023-10-06 15:19:34.224251');
+INSERT INTO public.capability VALUES (47, 15, 2, 'Data Access', '2023-10-06 15:23:33.053765');
+INSERT INTO public.capability VALUES (48, 15, 2, 'Data Availability', '2023-10-06 15:23:44.105081');
+INSERT INTO public.capability VALUES (49, 15, 2, 'Data Categorization', '2023-10-06 15:23:56.604482');
+INSERT INTO public.capability VALUES (50, 15, 1, 'Data Encryption', '2023-10-06 15:24:08.347428');
+INSERT INTO public.capability VALUES (51, 15, 2, 'Data Inventory Management', '2023-10-06 15:24:21.317944');
+INSERT INTO public.capability VALUES (39, 16, 2, 'Network Resilience', '2023-10-06 15:20:43.423782');
+INSERT INTO public.capability VALUES (40, 16, 1, 'Network Segmentation', '2023-10-06 15:20:56.914121');
+INSERT INTO public.capability VALUES (41, 16, 2, 'Network Traffic Management', '2023-10-06 15:21:10.478316');
+INSERT INTO public.capability VALUES (42, 16, 2, 'Traffic Encryption', '2023-10-06 15:21:24.9588');
+INSERT INTO public.capability VALUES (31, 17, 1, 'Access Management', '2023-10-06 15:08:15.534594');
+INSERT INTO public.capability VALUES (32, 17, 1, 'Authentication', '2023-10-06 15:17:59.242437');
+INSERT INTO public.capability VALUES (33, 17, 1, 'Identity Stores', '2023-10-06 15:18:16.639232');
+INSERT INTO public.capability VALUES (62, 4, 2, 'Encryption in Transit', '2023-10-12 12:52:03.309656');
+INSERT INTO public.capability VALUES (63, 4, 2, 'Firewalls', '2023-10-12 12:52:18.607406');
+INSERT INTO public.capability VALUES (64, 4, 2, 'Policy', '2023-10-12 12:52:33.478537');
+INSERT INTO public.capability VALUES (65, 5, 2, 'Asset Management', '2023-10-12 12:53:39.222796');
+INSERT INTO public.capability VALUES (67, 5, 2, 'IDS/IPS', '2023-10-12 12:54:56.844442');
+INSERT INTO public.capability VALUES (68, 5, 2, 'SIEM', '2023-10-12 12:55:08.580479');
+INSERT INTO public.capability VALUES (55, 13, 2, 'Device Threat Protection', '2023-10-06 15:32:38.35061');
+INSERT INTO public.capability VALUES (56, 13, 2, 'Policy Enforcement', '2023-10-06 15:33:05.119296');
+INSERT INTO public.capability VALUES (57, 13, 2, 'Resource Access', '2023-10-06 15:33:19.960765');
+INSERT INTO public.capability VALUES (34, 13, 2, 'Risk Assessments', '2023-10-06 15:18:30.44223');
 
 --
 -- Data for Name: domain; Type: TABLE DATA; Schema: public; Owner: telescope
 --
 
-COPY public.domain (id, description, created_at) FROM stdin;
-1	Secure Infrastructure	2023-01-05 12:04:58.133484
-2	Secure Data	2023-01-05 12:04:58.145907
-3	Secure Code	2023-01-05 12:04:58.147519
-4	Secure Integrations	2023-01-05 12:04:58.149359
-5	Secure Monitoring & Logging	2023-01-05 12:04:58.151347
-\.
+INSERT INTO public.domain VALUES (13, 'Devices', '2023-10-06 14:55:04.836871');
+INSERT INTO public.domain VALUES (14, 'Apps & Workloads', '2023-10-06 14:55:22.032712');
+INSERT INTO public.domain VALUES (17, 'Identity', '2023-10-06 14:56:00.614473');
+INSERT INTO public.domain VALUES (18, 'Cross-Cutting ZTA', '2023-10-06 14:56:13.832703');
+INSERT INTO public.domain VALUES (1, 'Infrastructure', '2023-01-05 12:04:58.133484');
+INSERT INTO public.domain VALUES (2, 'Data', '2023-01-05 12:04:58.145907');
+INSERT INTO public.domain VALUES (3, 'Application', '2023-01-05 12:04:58.147519');
+INSERT INTO public.domain VALUES (5, 'Visibility', '2023-01-05 12:04:58.151347');
+INSERT INTO public.domain VALUES (4, 'Networks', '2023-01-05 12:04:58.149359');
+INSERT INTO public.domain VALUES (16, 'Networks ZTA', '2023-10-06 14:55:48.372071');
+INSERT INTO public.domain VALUES (15, 'Data ZTA', '2023-10-06 14:55:35.744453');
 
 
 --
 -- Data for Name: flag; Type: TABLE DATA; Schema: public; Owner: telescope
 --
 
-COPY public.flag (id, description, created_at) FROM stdin;
-1	red	2023-01-05 12:06:10.998784
-2	green	2023-01-05 12:06:17.838214
-\.
+INSERT INTO public.flag VALUES (1, 'red', '2023-01-05 12:06:10.998784');
+INSERT INTO public.flag VALUES (2, 'green', '2023-01-05 12:06:17.838214');
 
 
 --
 -- Data for Name: integration_methods; Type: TABLE DATA; Schema: public; Owner: telescope
 --
 
-COPY public.integration_methods (integration_method_name, id) FROM stdin;
-telescopeComplianceRhacs	1
-\.
+INSERT INTO public.integration_methods VALUES ('telescopeComplianceRhacs', 1);
+INSERT INTO public.integration_methods VALUES ('telescopeSecureProtocols', 6);
+INSERT INTO public.integration_methods VALUES ('telescopeTestApi', 11);
+
+
+--
+-- Data for Name: integrations; Type: TABLE DATA; Schema: public; Owner: telescope
+--
+
+INSERT INTO public.integrations VALUES (6, 8, 'https://central-stackrox.apps.test-env.aws.project-telescope.com/v1/compliance/runresults?standardId=ocp4-cis&clusterId=569a487a-1cdd-4431-8ab3-0528e10b2124', '', '', 'eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3dGswIiwidHlwIjoiSldUIn0.eyJhdWQiOlsiaHR0cHM6Ly9zdGFja3JveC5pby9qd3Qtc291cmNlcyNhcGktdG9rZW5zIl0sImV4cCI6MTcxNTI0NDcyNiwiaWF0IjoxNjgzNzA4NzI2LCJpc3MiOiJodHRwczovL3N0YWNrcm94LmlvL2p3dCIsImp0aSI6ImRlZGQ1OTU0LTI4NTAtNGJlNi04ZmQyLWFmNmZmNWM0OTAzOSIsIm5hbWUiOiJzdGFja3JveC1jaHJpc2oiLCJyb2xlcyI6WyJBZG1pbiJdfQ.WM-7WVofWSvQmHUj6dnw8Ao5AkRbKGCMSFIcil-gJEUt1Zvmx0Ug4q1X_-6zD-Qk-RQ9nZUmbLCWc2YJOYECICaFkwSRrZecT19HOMpK6sed-lK6zvksxtaijP0HXbn_e7GGHzj-n8XzZG15WFtwbkNbwucNH6brl8MXmioQslphNYWvb_MHl-Ix3evV_1IVBfF4q4C_A5u6kXqb-SoCw65AHOBHAU23XCwvsi5PIyB7qYTggLW1ee4j2WxF3_YVSsH-ivA6qRXR_zZu1_tCXYQFZ8Vrrw0FMBYuPYNLlrZ1MDPSUn5misUl-I8PeHMxDeVON3yUAqOEGNjYTXiPkgWh8hlgUo1vdVK-tKokSa5n1b8i6JmjOSgRpA5TGVfRJxLul3TJH9JZn0hBAjMeXsAM6O_fDkWwda-Hg9Mvtk_M9bCp4y8dIZx4A4A4x-sfq2VuGezGM-mX1hlkYIY043BViGc3C2Pw-GO_Yzt-wOeLj37ALivGEN7vG5ozQKa265_jdzPLmGBY5_fsYfJgOKMdZ3KCl7sw0CQ86Gwq2CYb4PfitYPKXqeSwgB_a4mpph5TVvJAk_K81nAzuVkiLrj2FqJrnuwmLkec1MAaGKj4NNwMAs08a6Rl01KPn7KVCCgaGaJWevKNyVn1yo_Zy0VQ3eZFjZRacvUWBS0OPdg', '90', '2023-05-11 08:43:44.649431+01', 'RHACS Compliance Score (Telescope)', 1, 'PX8VK');
+INSERT INTO public.integrations VALUES (22, 49, 'https://localhost/alal', 'admin', 'admin', '', 'Yes', NULL, 'CJ Test', NULL, 'EQTVW');
+
+
+--
+-- Data for Name: profiles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.profiles VALUES (2, 'ZTA', 'ZTA domains', '{13,14,15,16,17,18}');
+INSERT INTO public.profiles VALUES (1, 'Core', 'Default domains', '{1,2,3,4,5}');
+
+
+--
+-- Name: capability_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
+--
+
+SELECT pg_catalog.setval('public.capability_history_id_seq', 727, true);
 
 
 --
 -- Name: capability_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
-SELECT pg_catalog.setval('public.capability_id_seq', 16, true);
+SELECT pg_catalog.setval('public.capability_id_seq', 68, true);
 
 
 --
 -- Name: domain_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
-SELECT pg_catalog.setval('public.domain_id_seq', 5, true);
+SELECT pg_catalog.setval('public.domain_id_seq', 19, true);
 
 
 --
@@ -303,14 +442,21 @@ SELECT pg_catalog.setval('public.flag_id_seq', 2, true);
 -- Name: integration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
-SELECT pg_catalog.setval('public.integration_id_seq', 10, true);
+SELECT pg_catalog.setval('public.integration_id_seq', 22, true);
 
 
 --
 -- Name: integration_methods_id_seq; Type: SEQUENCE SET; Schema: public; Owner: telescope
 --
 
-SELECT pg_catalog.setval('public.integration_methods_id_seq', 3, true);
+SELECT pg_catalog.setval('public.integration_methods_id_seq', 11, true);
+
+
+--
+-- Name: profiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.profiles_id_seq', 21, true);
 
 
 --
@@ -346,72 +492,17 @@ ALTER TABLE ONLY public.integrations
 
 
 --
--- Name: TABLE integration_methods; Type: ACL; Schema: public; Owner: telescope
---
-
-GRANT ALL ON TABLE public.integration_methods TO telescope;
-
---
--- Name: capability_history(); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION public.capability_history() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-    INSERT INTO
-        capability_history(capability_id,flag)
-        VALUES(new.id,new.flag_id);
-           RETURN new;
-END;
-$$;
-
-
-ALTER FUNCTION public.capability_history() OWNER TO postgres;
-
-
-CREATE TABLE public.capability_history (
-    id integer NOT NULL,
-    capability_id integer,
-    flag integer,
-    updated timestamp without time zone DEFAULT CURRENT_TIMESTAMP
-);
-
-
-ALTER TABLE public.capability_history OWNER TO telescope;
-
---
--- Name: capability_history_id_seq; Type: SEQUENCE; Schema: public; Owner: telescope
---
-
-CREATE SEQUENCE public.capability_history_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.capability_history_id_seq OWNER TO telescope;
-
---
--- Name: capability_history_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: telescope
---
-
-ALTER SEQUENCE public.capability_history_id_seq OWNED BY public.capability_history.id;
-
----
--- Add ID sequence to capability_history.id column
---- 
-
-ALTER TABLE ONLY public.capability_history ALTER COLUMN id SET DEFAULT nextval('public.capability_history_id_seq'::regclass);
-
---
 -- Name: capability capability_trigger_copy; Type: TRIGGER; Schema: public; Owner: telescope
 --
 
 CREATE TRIGGER capability_trigger_copy AFTER UPDATE ON public.capability FOR EACH ROW EXECUTE FUNCTION public.capability_history();
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: pg_database_owner
+--
+
+GRANT ALL ON SCHEMA public TO telescope;
 
 
 --
