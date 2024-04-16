@@ -5,4 +5,4 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   config.js: |
-    window.TELESCOPE_BACKEND_URL = {{ required "Backend URL is required" (.Values.backendUrl | quote) }}
+    window.TELESCOPE_BACKEND_URL = {{ required "Backend URL is required" (.Values.backendUrl) | quote }}
