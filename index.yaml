@@ -21,6 +21,17 @@ entries:
     version: 0.1.0
   postgresql:
   - apiVersion: v2
+    created: "2024-04-16T09:21:13.588191584Z"
+    description: Postgresql Helm Chart
+    digest: 32fcaf6271f8e6ca1a81bacb5bc546c8489325d19bbcfadbd5f10a43bdeea8ee
+    home: https://project-telescope.com
+    name: postgresql
+    sources:
+    - https://github.com/RH-Telescope/helm-charts
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/postgresql-0.4.0/postgresql-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     created: "2023-01-09T19:44:21.901371219Z"
     description: Postgresql Helm Chart
     digest: af5efc2f45c34b7c21f0e6673716d1dda3e20f872b1808f0a2b618a5b9fd6b94
@@ -62,6 +73,17 @@ entries:
     version: 0.1.0
   telescope-argocd:
   - apiVersion: v2
+    created: "2024-04-16T09:21:13.810638043Z"
+    description: Chart to deploy Argo CD Applications Supporting Telescope
+    digest: ea320a2acd208a5d44f676abe7b70e6f0e27b83a5b5b7bb5224e31a4132d5d78
+    home: https://project-telescope.com
+    name: telescope-argocd
+    sources:
+    - https://github.com/RH-Telescope/helm-charts
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-argocd-0.4.0/telescope-argocd-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     created: "2023-08-15T07:33:30.631648894Z"
     description: Chart to deploy Argo CD Applications Supporting Telescope
     digest: a2516b19452cf1d2c2ec2f591d0268ced97585696384676ffb8227a7129448a6
@@ -86,6 +108,18 @@ entries:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-argocd-0.1.0/telescope-argocd-0.1.0.tgz
     version: 0.1.0
   telescope-backend:
+  - apiVersion: v2
+    created: "2024-04-16T09:21:14.005977056Z"
+    description: A helm chart for Kubernetes to deploy the 'telescope-backend' application.
+    digest: 3d272e24c56ee504c92e900836df1617e5f1d6e3f4a6418f812f9fe49a85aef8
+    home: https://project-telescope.com
+    name: telescope-backend
+    sources:
+    - https://github.com/RH-Telescope/helm-charts
+    type: application
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-backend-0.4.0/telescope-backend-0.4.0.tgz
+    version: 0.4.0
   - apiVersion: v2
     created: "2024-04-05T14:55:43.656592852Z"
     description: A helm chart for Kubernetes to deploy the 'telescope-backend' application.
@@ -196,6 +230,18 @@ entries:
     version: 0.1.0
   telescope-frontend:
   - apiVersion: v2
+    created: "2024-04-16T09:21:14.185177914Z"
+    description: A helm chart for Kubernetes to deploy the 'telescope-frontend' application.
+    digest: efcbca865a46d18704091c2c6287f1f0aa939295fdce293a4190a37452e696e9
+    home: https://project-telescope.com
+    name: telescope-frontend
+    sources:
+    - https://github.com/RH-Telescope/helm-charts
+    type: application
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-frontend-0.2.0/telescope-frontend-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2023-03-21T22:34:25.216668036Z"
     description: A helm chart for Kubernetes to deploy the 'telescope-frontend' application.
     digest: 6607d3a63e731f96902d3e2a81a7ed15b048094994abad4c3f9b76d43e59da9f
@@ -215,6 +261,16 @@ entries:
     version: 0.1.1
   telescope-integration-scripts:
   - apiVersion: v2
+    created: "2024-04-16T09:21:14.429999431Z"
+    description: Generic charts to support the tooling to integrate external tooling
+      into Telescope.
+    digest: c79f21c04c3ea725de0e8f5c7906c47bf3c6fdca6574422925594ae85bf7ac58
+    name: telescope-integration-scripts
+    type: application
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-integration-scripts-0.1.1/telescope-integration-scripts-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2023-04-11T05:50:39.956309594Z"
     description: Generic charts to support the tooling to integrate external tooling
       into Telescope.
@@ -226,6 +282,15 @@ entries:
     version: 0.1.0
   telescope-toggle:
   - apiVersion: v2
+    created: "2024-04-16T09:21:14.671089524Z"
+    description: A helm chart for Kubernetes to deploy the 'telescope-toggle' application.
+    digest: ee571a00a467ec562b6ba6f5c1a401951a931d7b62fcb6834753120c2f53621c
+    name: telescope-toggle
+    type: application
+    urls:
+    - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-toggle-0.2.0/telescope-toggle-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2023-03-21T22:32:47.471619444Z"
     description: A helm chart for Kubernetes to deploy the 'telescope-toggle' application.
     digest: 01eac1549d9fba9fdb5f56cb965dc719287b450df932ad8604d474645b6a4ec6
@@ -234,4 +299,4 @@ entries:
     urls:
     - https://github.com/RH-Telescope/helm-charts/releases/download/telescope-toggle-0.1.0/telescope-toggle-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-05T14:55:43.656697938Z"
+generated: "2024-04-16T09:21:14.671618926Z"
